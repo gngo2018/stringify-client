@@ -1,0 +1,27 @@
+.client_container{
+    padding:3%;
+}
+
+.client_card{
+    margin: 2rem 0;
+    height:5rem;
+    border: 1px solid var(--secondary);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (min-width: 1000px) {
+    .client_container{
+        padding: 3% 10%;
+        display: flex;
+        justify-content:baseline;
+    }
+
+    .client_card{
+        margin:1rem;
+        height:10rem;
+        width:10rem;
+    }
+}
