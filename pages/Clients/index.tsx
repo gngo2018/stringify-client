@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Client } from '../../services/ClientService'
+import Link from 'next/link'
+import { Client } from '../../models/Client'
 import * as ClientService from '../../services/ClientService'
 import clientStyles from './client.module.css'
 
@@ -22,7 +23,11 @@ export default function Clients() {
                 {
                     clients &&
                     clients.map((c) => {
-                        return <div className={clientStyles.client_card} key={c.id}>{c.firstName} {c.lastName}</div>
+                        return (
+                            <Link href={'/Clients/' + c.id}>
+                                <div className={clientStyles.client_card} key={c.id}>{c.firstName} {c.lastName}</div>
+                            </Link>
+                        )
                     })
                 }
             </div>
