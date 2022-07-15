@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import { Client } from '../../../models/Clients/Client'
 import { UpdateClientAsync } from '../../../services/ClientService'
 import clientUpdateStyles from './client_update.module.css'
-import { ClientCreate } from '../../../models/Clients/ClientCreate'
 
 export default function UpdateClient() {
     const router = useRouter();
