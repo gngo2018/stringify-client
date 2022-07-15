@@ -32,3 +32,21 @@ export async function CreateClientAsync(client: ClientCreate){
 
     return response;
 }
+
+export async function DeleteClientAsync(id: number){
+    const response = await axios.delete(url +'/' + id);
+
+    return response;
+}
+
+export async function UpdateClientAsync(client: Client){
+    const updateURL = url + '/' + client.id
+    const model: ClientCreate = {
+        firstName: client.firstName,
+        lastName: client.lastName,
+        racket: client.racket
+    }
+    const response = await axios.put(updateURL, model);
+
+    return response;
+}
