@@ -1,4 +1,6 @@
-import { Client } from '../models/Client'
+import axios from 'axios'
+import { Client } from '../models/Clients/Client'
+import { ClientCreate } from '../models/Clients/ClientCreate'
 
 const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients';
 
@@ -15,8 +17,6 @@ export async function GetAllClients() {
 
 export async function GetClientById(id: number) {
     const requestURL = url + '/' + id
-    console.log(requestURL);
-    
     const response = await fetch(requestURL);
     const client = await response.json();
     if(client){
@@ -25,4 +25,10 @@ export async function GetClientById(id: number) {
     else{
         return {} as Client
     }
+}
+
+export async function CreateClientAsync(client: ClientCreate){
+    const response = await axios.post(url, client)
+
+    return response;
 }

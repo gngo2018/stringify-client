@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import * as ClientService from '../../services/ClientService'
-import { Client } from '../../models/Client'
+import { Client } from '../../models/Clients/Client'
 import clientDetailStyles from './client_detail.module.css'
 
 export default function ClientDetail(){
