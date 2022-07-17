@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           <Link href='/Clients'>
             <a className={styles.card}>
               <h2>Clients &rarr;</h2>
-              <p>Create and manage client's requests and information</p>
+              <p>Create and manage client requests and information</p>
             </a>
           </Link>
           <Link href='/StringJobs'>
