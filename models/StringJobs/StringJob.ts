@@ -9,4 +9,5 @@ export type StringJob = {
     tensionType: string;
     chargeAmount: number;
     notes: string;
+    clientName?: string;
 }
