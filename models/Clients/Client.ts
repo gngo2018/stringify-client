@@ -1,3 +1,5 @@
+import { StringJob } from "../StringJobs/StringJob"
+
 export type Client = {
     id: number
     firstName: string
@@ -8,4 +10,5 @@ export type Client = {
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date
+    stringJobs?: StringJob[]
 }

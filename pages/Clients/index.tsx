@@ -20,7 +20,7 @@ export default function Clients() {
         <>
             <h1>Client Page!</h1>
             <Link href="/Clients/Create">
-                <button>Create Client</button>
+                <button>Create</button>
             </Link>
             <div className={clientStyles.client_container}>
                 {

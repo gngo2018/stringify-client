@@ -1,3 +1,40 @@
-.button_container button{
-    margin-right:5px;
+.container {
+    padding:0 3%;
+}
+
+.client_detail_container {
+    margin-bottom: 10px;
+}
+
+.client_detail_container p {
+    margin: 0;
+}
+
+.client_detail_container h2 {
+    margin-bottom: 5px;
+}
+
+.button_container button {
+    margin-right: 5px;
+}
+
+.string_job_header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.string_job_header_container button{
+    height:20px;
+}
+
+.string_job_container {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.string_job_container span {
+    display: block;
 }
