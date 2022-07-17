@@ -18,23 +18,33 @@
     margin-right: 5px;
 }
 
-.string_job_header_container{
+.string_job_header_card{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.string_job_header_container button{
+.string_job_header_card button{
     height:20px;
 }
 
-.string_job_container {
+.string_job_card {
     margin-bottom: 20px;
     padding: 5px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
 }
 
-.string_job_container span {
+.string_job_card span {
     display: block;
+}
+
+.string_job_card:hover{
+    font-weight:500;
+    background-color: var(--tertiary);
+}
+
+.string_job_card:active{
+    background-color: var(--tertiary);
 }

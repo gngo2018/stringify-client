@@ -4,6 +4,7 @@ import * as ClientService from '../../services/ClientService'
 import * as StringJobService from '../../services/StringJobService'
 import { Client } from '../../models/Clients/Client'
 import clientDetailStyles from './client_detail.module.css'
+import Link from 'next/link'
 
 export default function ClientDetail() {
     const router = useRouter();
@@ -66,18 +67,20 @@ export default function ClientDetail() {
             </div>
             <div className={clientDetailStyles.string_job_header_container}>
                 <h3>Stringing History</h3>
-                <button>New Job</button>
+                {/* <button>New Job</button> */}
             </div>
             {client?.stringJobs && (
                 client.stringJobs.map(sj => {
                     return (
-                        <div key={sj.id} className={clientDetailStyles.string_job_container}>
-                            <span>Date: {sj.jobDateTimeUtc.toString()}</span>
-                            <span>Racket: {sj.racket}</span>
-                            <span>String: {sj.stringName}</span>
-                            <span>String Type: {sj.stringType}</span>
-                            <span>Tension: {sj.tension} {sj.tensionType}</span>
-                        </div>
+                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id}>
+                            <div className={clientDetailStyles.string_job_card}>
+                                <span>Date: {sj.jobDateTimeUtc.toString()}</span>
+                                <span>Racket: {sj.racket}</span>
+                                <span>String: {sj.stringName}</span>
+                                <span>String Type: {sj.stringType}</span>
+                                <span>Tension: {sj.tension} {sj.tensionType}</span>
+                            </div>
+                        </Link>
                     )
                 })
             )}

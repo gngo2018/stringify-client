@@ -17,11 +17,13 @@ export default function Clients() {
     }, []);
 
     return (
-        <>
-            <h1>Client Page!</h1>
-            <Link href="/Clients/Create">
-                <button>Create</button>
-            </Link>
+        <main className={clientStyles.container}>
+            <div className={clientStyles.header_container}>
+                <h2>Client List Page</h2>
+                <Link href="/Clients/Create">
+                    <button>Create</button>
+                </Link>
+            </div>
             <div className={clientStyles.client_container}>
                 {
                     clients &&
@@ -34,6 +36,6 @@ export default function Clients() {
                     })
                 }
             </div>
-        </>
+        </main>
     )
 }

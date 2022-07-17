@@ -1,5 +1,11 @@
-.client_container{
-    padding:3%;
+.container{
+    padding:0 3%;
+}
+
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .client_card{
@@ -10,6 +16,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
+}
+
+.client_card:hover{
+    font-weight:500;
+    background-color: var(--tertiary);
 }
 
 @media (min-width: 1000px) {

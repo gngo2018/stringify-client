@@ -23,11 +23,16 @@ const Home: NextPage = () => {
               <p>Create and manage client's requests and information</p>
             </a>
           </Link>
-
           <Link href='/StringJobs'>
             <a className={styles.card}>
               <h2>String Jobs &rarr;</h2>
               <p>Create and view detailed information about string jobs</p>
+            </a>
+          </Link>
+          <Link href='/'>
+            <a className={styles.card}>
+              <h2>Analytics &rarr;</h2>
+              <p>Page to view analytics about clients and rackets. Coming soon!</p>
             </a>
           </Link>
         </div>
