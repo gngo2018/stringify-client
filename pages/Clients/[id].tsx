@@ -71,7 +71,7 @@ export default function ClientDetail() {
             {client?.stringJobs && (
                 client.stringJobs.map(sj => {
                     return (
-                        <div className={clientDetailStyles.string_job_container}>
+                        <div key={sj.id} className={clientDetailStyles.string_job_container}>
                             <span>Date: {sj.jobDateTimeUtc.toString()}</span>
                             <span>Racket: {sj.racket}</span>
                             <span>String: {sj.stringName}</span>

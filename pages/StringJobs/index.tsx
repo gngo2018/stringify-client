@@ -22,7 +22,9 @@ export default function StringJobs() {
         <main className={stringJobStyles.container}>
             <div className={stringJobStyles.header_container}>
                 <h2>Stringing List Page</h2>
-                <button>Create</button>
+                <Link href='/StringJobs/Create'>
+                    <button>Create</button>
+                </Link>
             </div>
             <div className={stringJobStyles.table}>
                 <div className={stringJobStyles.table_header}>

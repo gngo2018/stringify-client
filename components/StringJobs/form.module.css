@@ -1,0 +1,14 @@
+.form_container{
+    padding:3%;
+    height:80vh;
+}
+
+.form_container input, .form_container select{
+    display:block;
+    margin: 5px 0;
+}
+
+.form_container button{
+    display: block;
+    margin-top:15px;
+}
