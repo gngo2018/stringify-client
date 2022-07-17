@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Client } from '../../../models/Clients/Client'
@@ -11,6 +12,18 @@ export default function StringJobDetail() {
     const { id } = router.query;
     const [stringJob, setStringJob] = useState<StringJob>()
     const [client, setClient] = useState<Client>()
+
+    const handleDelete = async () => {
+        const result = confirm('Are you sure you want to delete this job?')
+        if (result === true && id) {
+            const stringJobId = parseInt(id?.toString());
+            const response = await StringJobService.DeleteStringJobAsync(stringJobId);
+            if (response.status === 204) {
+                router.push('/StringJobs')
+            }
+        }
+    }
+
     useEffect(() => {
         async function GetStringJobDetail() {
             if (id) {
@@ -31,8 +44,10 @@ export default function StringJobDetail() {
         <main className={detailStyles.detail_container}>
             <h2>Job Detail - {client?.firstName} {client?.lastName}</h2>
             <div className={detailStyles.button_container}>
-                <button>Edit</button>
-                <button>Delete</button>
+                <Link href={'/StringJobs/Update/' + stringJob?.id}>
+                    <button>Edit</button>
+                </Link>
+                <button onClick={() => handleDelete()}>Delete</button>
             </div>
             <label>Date Requested</label>
             <span>{stringJob?.jobDateTimeUtc.toString()}</span>

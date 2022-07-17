@@ -28,3 +28,8 @@ export async function UpdateStringJobAsync(id: number, payload: StringJobForm) {
     const response = await axios.put(`${url}/${id}`, payload);
     return response;
 }
+
+export async function DeleteStringJobAsync(id: number){
+    const response = await axios.delete(url + `/${id}`);
+    return response;
+}
