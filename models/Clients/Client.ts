@@ -3,6 +3,8 @@ export type Client = {
     firstName: string
     lastName: string
     racket: string
+    phoneNumber?: string
+    emailAddress?: string
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date

@@ -44,8 +44,11 @@ export async function UpdateClientAsync(client: Client){
     const model: ClientCreate = {
         firstName: client.firstName,
         lastName: client.lastName,
+        phoneNumber: client.phoneNumber,
+        emailAddress: client.emailAddress,
         racket: client.racket
     }
+    
     const response = await axios.put(updateURL, model);
 
     return response;

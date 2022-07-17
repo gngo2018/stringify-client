@@ -34,6 +34,8 @@ export default function ClientDetail(){
             if(id){
                 const response = await ClientService.GetClientById(parseInt(id.toString()));
                 setClient(response);
+                console.log(response);
+                
             }
         }
 
@@ -47,6 +49,8 @@ export default function ClientDetail(){
                 <button onClick={() => handleEdit()}>Edit</button>
                 <button onClick={() => handleDelete()}>Delete</button>
             </div>
+            <p>Email: {client?.emailAddress}</p>
+            <p>Phone: {client?.phoneNumber}</p>
             <p>Racket: {client?.racket}</p>
         </>
     )

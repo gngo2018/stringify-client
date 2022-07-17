@@ -8,13 +8,12 @@ export default function CreateClient() {
     const router = useRouter();
     const { register, handleSubmit } = useForm<ClientCreate>();
 
-    const onSubmit =  handleSubmit(async (data) => {
-        console.log(data);
+    const onSubmit = handleSubmit(async (data) => {
         const response = await CreateClientAsync(data);
-        if(response.status === 200){
+        if (response.status === 200) {
             router.push('/Clients')
         }
-        else{
+        else {
             //TODO: Perform error handling
             console.log('Unable to create client');
         }
@@ -26,16 +25,29 @@ export default function CreateClient() {
             <label>First Name</label>
             <input
                 {...register('firstName')}
-                placeholder="FirstName"
+                placeholder="First Name"
                 name="firstName"
                 required
             />
             <label>Last Name</label>
             <input
                 {...register('lastName')}
-                placeholder="LastName"
+                placeholder="Last Name"
                 name="lastName"
                 required
+            />
+            <label>Phone Number</label>
+            <input
+                {...register('phoneNumber')}
+                placeholder="Phone Number"
+                name="phoneNumber"
+            />
+            <label>Email</label>
+            <input
+                {...register('emailAddress')}
+                placeholder="Email"
+                name="emailAddress"
+                
             />
             <label>Client Preferred Racket</label>
             <input

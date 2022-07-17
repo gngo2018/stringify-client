@@ -11,14 +11,14 @@ export default function UpdateClient() {
     const { client } = router.query;
     const [clientData, setClientData] = useState<Client>();
 
-    const onSubmit =  handleSubmit(async (data) => {
-        if(clientData){
+    const onSubmit = handleSubmit(async (data) => {
+        if (clientData) {
             data.id = clientData.id;
             const response = await UpdateClientAsync(data);
-            if(response.status === 200){
+            if (response.status === 200) {
                 router.push('/Clients')
             }
-            else{
+            else {
                 //TODO: Perform error handling
                 console.log('Unable to update client');
             }
@@ -47,6 +47,20 @@ export default function UpdateClient() {
                 {...register('lastName')}
                 placeholder={clientData?.lastName}
                 name="lastName"
+                required
+            />
+            <label>Phone Number</label>
+            <input
+                {...register('phoneNumber')}
+                placeholder="Phone Number"
+                name="phoneNumber"
+                required
+            />
+            <label>Email</label>
+            <input
+                {...register('emailAddress')}
+                placeholder="Email"
+                name="emailAddress"
                 required
             />
             <label>Client Preferred Racket</label>
