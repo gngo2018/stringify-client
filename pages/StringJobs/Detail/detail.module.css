@@ -1,0 +1,24 @@
+.detail_container{
+    padding:3%;
+}
+
+.detail_container h2{
+    margin:0 0 10px 0;
+    color:var(--secondary);
+}
+
+
+.detail_container span{
+    display: block;
+    margin-bottom:10px;
+    color:var(--secondary);
+    font-size:20px;
+}
+
+.button_container{
+    margin-bottom:10px;
+}
+
+.button_container button{
+    margin-right:10px;
+}

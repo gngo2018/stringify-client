@@ -9,6 +9,11 @@ export async function GetAllStringJobsAsync(){
     return response;
 }
 
+export async function GetStringJobById(id: number){
+    const response = await axios.get(url + `/${id}`);
+    return response;
+}
+
 export async function GetStringJobsByClientIdAsync(clientId: number){
     const response = await axios.get<StringJob[]>(`${url}/client/${clientId}`);
     return response;
