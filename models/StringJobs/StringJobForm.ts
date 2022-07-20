@@ -1,4 +1,4 @@
-export type StringJobForm = {
+export type StringJobFormFields = {
     jobDateTimeUtc: Date;
     clientId: number;
     racket: string;

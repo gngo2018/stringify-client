@@ -17,7 +17,7 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
         if (currentUserRole) {
             setUserRole(currentUserRole);
         }
-    }, [localStorage])
+    }, [])
 
     return (
         <div className={isOpen ? `${menuStyles.menu_container} ${menuStyles.menu_container_is_open} ` : menuStyles.menu_container}>

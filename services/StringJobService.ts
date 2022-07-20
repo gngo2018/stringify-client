@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { StringJob } from '../models/StringJobs/StringJob'
-import { StringJobForm } from '../models/StringJobs/StringJobForm'
+import { StringJobFormFields } from '../models/StringJobs/StringJobForm'
 
 const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'stringjobs';
 
@@ -19,12 +19,12 @@ export async function GetStringJobsByClientIdAsync(clientId: number){
     return response;
 }
 
-export async function CreateStringJobAsync(payload: StringJobForm) {
+export async function CreateStringJobAsync(payload: StringJobFormFields) {
     const response = await axios.post(url, payload);
     return response;
 }
 
-export async function UpdateStringJobAsync(id: number, payload: StringJobForm) {
+export async function UpdateStringJobAsync(id: number, payload: StringJobFormFields) {
     const response = await axios.put(`${url}/${id}`, payload);
     return response;
 }

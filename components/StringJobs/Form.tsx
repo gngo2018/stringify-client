@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { Client } from '../../models/Clients/Client'
-import { StringJobForm } from '../../models/StringJobs/StringJobForm'
+import { StringJobFormFields } from '../../models/StringJobs/StringJobForm'
 import * as StringJobService from '../../services/StringJobService'
 import formStyles from './form.module.css'
 
@@ -14,7 +14,7 @@ export interface FormProps {
 
 export default function StringJobForm(props: FormProps) {
     const router = useRouter();
-    const { register, handleSubmit } = useForm<StringJobForm>();
+    const { register, handleSubmit } = useForm<StringJobFormFields>();
 
     const onSubmit = handleSubmit(async (data) => {
         let response: AxiosResponse;

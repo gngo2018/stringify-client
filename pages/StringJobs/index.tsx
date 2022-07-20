@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { StringJob } from '../../models/StringJobs/StringJob'
 import * as StringJobService from '../../services/StringJobService'
 import stringJobStyles from './string_job.module.css'
 
 export default function StringJobs() {
+    const router = useRouter();
     const [stringJobs, setStringJobs] = useState<StringJob[]>();
+    const [userRole, setUserRole] = useState<string>();
 
     useEffect(() => {
         async function GetAllStringJobs(){
@@ -16,15 +19,21 @@ export default function StringJobs() {
                 setStringJobs(jobs);
             }
         }
+        const userRole = localStorage.getItem('userRole');
+        if(userRole){
+            setUserRole(userRole);
+        }
         GetAllStringJobs();
     }, []);
     return(
         <main className={stringJobStyles.container}>
             <div className={stringJobStyles.header_container}>
                 <h2>Stringing List Page</h2>
-                <Link href='/StringJobs/Create'>
-                    <button>Create</button>
-                </Link>
+                {userRole === 'admin' && (
+                    <Link href='/StringJobs/Create'>
+                        <button>Create</button>
+                    </Link>
+                )}
             </div>
             <div className={stringJobStyles.table}>
                 <div className={stringJobStyles.table_header}>
@@ -42,7 +51,6 @@ export default function StringJobs() {
                                     <span>{sj.racket}</span>
                                 </div>
                             </Link>
-
                         )
                     })
                 )}
