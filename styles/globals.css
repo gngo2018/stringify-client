@@ -31,3 +31,7 @@ button:hover {
   /*  Making button bigger on hover  */
   transform: scale(1.1) perspective(1px)
 }
+
+input {
+  font-size: 16px;
+}

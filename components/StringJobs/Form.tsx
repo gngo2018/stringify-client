@@ -12,7 +12,7 @@ export interface FormProps {
     stringJobId?: number
 }
 
-export default function Form(props: FormProps) {
+export default function StringJobForm(props: FormProps) {
     const router = useRouter();
     const { register, handleSubmit } = useForm<StringJobForm>();
 

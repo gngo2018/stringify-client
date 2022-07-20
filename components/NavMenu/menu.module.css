@@ -29,6 +29,17 @@
     font-weight:500;
 }
 
+.header_container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_container span{
+    font-weight: 500;
+    font-style: italic;
+}
+
 @media (min-width:1024px){
     .menu_container{
         left:85%;
