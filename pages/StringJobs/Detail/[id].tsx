@@ -12,6 +12,7 @@ export default function StringJobDetail() {
     const { id } = router.query;
     const [stringJob, setStringJob] = useState<StringJob>()
     const [client, setClient] = useState<Client>()
+    const [userRole, setUserRole] = useState('guest');
 
     const handleDelete = async () => {
         const result = confirm('Are you sure you want to delete this job?')
@@ -35,6 +36,10 @@ export default function StringJobDetail() {
                     const client = await ClientService.GetClientById(response.data.clientId);
                     setClient(client)
                 }
+                const userRole = localStorage.getItem('userRole');
+                if(userRole){
+                    setUserRole(userRole);
+                }
             }
         }
 
@@ -43,12 +48,14 @@ export default function StringJobDetail() {
     return (
         <main className={detailStyles.detail_container}>
             <h2>Job Detail - {client?.firstName} {client?.lastName}</h2>
-            <div className={detailStyles.button_container}>
-                <Link href={'/StringJobs/Update/' + stringJob?.id}>
-                    <button>Edit</button>
-                </Link>
-                <button onClick={() => handleDelete()}>Delete</button>
-            </div>
+            {userRole === 'admin' && (
+                <div className={detailStyles.button_container}>
+                    <Link href={'/StringJobs/Update/' + stringJob?.id}>
+                        <button>Edit</button>
+                    </Link>
+                    <button onClick={() => handleDelete()}>Delete</button>
+                </div>
+            )}
             <label>Date Requested</label>
             <span>{stringJob?.jobDateTimeUtc.toString()}</span>
             <label>String</label>
@@ -57,10 +64,14 @@ export default function StringJobDetail() {
             <span>{stringJob?.stringType}</span>
             <label>Tension</label>
             <span>{stringJob?.tension} {stringJob?.tensionType}</span>
-            <label>Charge Amount</label>
-            <span>${stringJob?.chargeAmount}</span>
-            <label>Notes</label>
-            <span>{stringJob?.notes}</span>
+            {userRole === 'admin' && (
+                <>
+                    <label>Charge Amount</label>
+                    <span>${stringJob?.chargeAmount}</span>
+                    <label>Notes</label>
+                    <span>{stringJob?.notes}</span>
+                </>
+            )}
         </main>
     )
 }

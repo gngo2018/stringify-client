@@ -9,7 +9,7 @@ import formStyles from './form.module.css'
 export interface FormProps {
     source: string
     clients?: Client[]
-    stringJobId?: number
+    stringJobId?: number,
 }
 
 export default function StringJobForm(props: FormProps) {

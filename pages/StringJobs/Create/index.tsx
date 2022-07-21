@@ -24,7 +24,7 @@ export default function CreateStringJob() {
     return(
         <main>
             <h2>Create String Job</h2>
-            <StringJobForm source='create' clients={clients}/>
+            <StringJobForm source='create' clients={clients} />
         </main>
     )
 }

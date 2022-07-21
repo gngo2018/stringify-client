@@ -10,6 +10,7 @@ export default function ClientDetail() {
     const router = useRouter();
     const { id } = router.query;
     const [client, setClient] = useState<Client>();
+    const [userRole, setUserRole] = useState('guest');
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -37,9 +38,14 @@ export default function ClientDetail() {
                 const clientId = parseInt(id.toString());
                 const response = await ClientService.GetClientById(clientId);
                 const stringJobs = await GetStringJobsByClientId(clientId);
-                stringJobs?.sort((a,b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc) );
+                stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 response.stringJobs = stringJobs;
                 setClient(response);
+
+                const userRole = localStorage.getItem('userRole');
+                if (userRole) {
+                    setUserRole(userRole);
+                }
             }
         }
 
@@ -57,14 +63,20 @@ export default function ClientDetail() {
         <div className={clientDetailStyles.container}>
             <div className={clientDetailStyles.client_detail_container}>
                 <h2>{client?.firstName} {client?.lastName}</h2>
-                <p>Email: {client?.emailAddress}</p>
-                <p>Phone: {client?.phoneNumber}</p>
+                {userRole === 'admin' && (
+                    <>
+                        <p>Email: {client?.emailAddress}</p>
+                        <p>Phone: {client?.phoneNumber}</p>
+                    </>
+                )}
                 <p>Preferred Racket: {client?.racket}</p>
             </div>
-            <div className={clientDetailStyles.button_container}>
-                <button onClick={() => handleEdit()}>Edit</button>
-                <button onClick={() => handleDelete()}>Delete</button>
-            </div>
+            {userRole === 'admin' && (
+                <div className={clientDetailStyles.button_container}>
+                    <button onClick={() => handleEdit()}>Edit</button>
+                    <button onClick={() => handleDelete()}>Delete</button>
+                </div>
+            )}
             <div className={clientDetailStyles.string_job_header_container}>
                 <h3>Stringing History</h3>
                 {/* <button>New Job</button> */}
