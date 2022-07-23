@@ -1,9 +1,9 @@
 .form_container{
-    padding:3%;
+    padding:0 3%;
     height:80vh;
 }
 
-.form_container input, .form_container select{
+.form_container input, .form_container select, .form_container textarea{
     display:block;
     margin: 5px 0;
 }

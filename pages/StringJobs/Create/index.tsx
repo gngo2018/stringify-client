@@ -22,7 +22,7 @@ export default function CreateStringJob() {
     }, [router]);
     
     return(
-        <main>
+        <main className={createStyles.container}>
             <h2>Create String Job</h2>
             <StringJobForm source='create' clients={clients} />
         </main>

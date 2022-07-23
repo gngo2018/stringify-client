@@ -41,6 +41,7 @@ export default function StringJobForm(props: FormProps) {
             />
             <label>Client</label>
             <select {...register('clientId')}>
+                <option value=''></option>
                 {props.clients && (
                     props.clients.map((c) => {
                         return (
@@ -54,12 +55,10 @@ export default function StringJobForm(props: FormProps) {
             <label>Racket</label>
             <input
                 {...register('racket')}
-                placeholder="Racket"
             />
             <label>String</label>
             <input
                 {...register('stringName')}
-                placeholder="String"
             />
             <label>String Type</label>
             <select {...register('stringType')}>
@@ -82,6 +81,7 @@ export default function StringJobForm(props: FormProps) {
                 {...register('chargeAmount')}
                 type="number"
             />
+            <label>Notes</label>
             <textarea
                 {...register('notes')}
                 placeholder="Notes"

@@ -12,7 +12,7 @@ export default function HeaderContainer(props: HeaderContainerProps) {
         <div className="container">
             <h2>{props.name} List Page</h2>
             {isAdmin && (
-                <button onClick={props.handleButtonClick}>Create</button>
+                <button type='button' onClick={props.handleButtonClick}>Create</button>
             )}
             <style>{`
                 .container {

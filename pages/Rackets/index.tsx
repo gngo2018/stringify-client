@@ -1,16 +1,19 @@
-import Link from 'next/link';
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 import HeaderContainer from '../../components/Modules/HeaderContainer'
 import { Racket } from '../../models/Rackets/Racket'
 import { GetAllRacketsAsync } from '../../services/RacketService'
 import racketStyles from './racket.module.css'
 
 export default function Rackets() {
+    const router = useRouter();
     const [rackets, setRackets] = useState<Racket[]>([]);
 
     const handleCreateButtonClick = () => {
-        //TODO: Add router for create page
+        router.push('/Rackets/Create')
     }
+
     useEffect(() => {
         async function GetAllRackets() {
             const response = await GetAllRacketsAsync();
@@ -19,7 +22,8 @@ export default function Rackets() {
             }
         }
         GetAllRackets();
-    }, [])
+    }, []);
+    
     return (
         <main className={racketStyles.container}>
             <HeaderContainer name="Racket" handleButtonClick={handleCreateButtonClick} />
