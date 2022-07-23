@@ -1,14 +1,20 @@
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { useAuthContext } from '../../contexts/AuthContext'
 import { UserCredentials, SignIn } from '../../services/AuthService'
 import formStyles from './form.module.css'
 
 export default function SignInForm() {
     const router = useRouter();
     const { register, handleSubmit } = useForm<UserCredentials>();
+    const { setIsAdmin } = useAuthContext();
 
     const onSubmit = handleSubmit(async (data) => {
         await SignIn(data);
+        const userRole = localStorage.getItem('userRole');
+        if(userRole === 'admin'){
+            setIsAdmin(true);
+        }
         router.push('/');
     })
 

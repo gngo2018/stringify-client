@@ -38,6 +38,12 @@ const Home: NextPage = () => {
               <p>Create and view detailed information about string jobs</p>
             </a>
           </Link>
+          <Link href='/Rackets'>
+            <a className={styles.card}>
+              <h2>Rackets &rarr;</h2>
+              <p>Page to view all rackets clients are using</p>
+            </a>
+          </Link>
           <Link href='/'>
             <a className={styles.card}>
               <h2>Analytics &rarr;</h2>

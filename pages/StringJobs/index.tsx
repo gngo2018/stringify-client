@@ -4,37 +4,29 @@ import Link from 'next/link'
 import { StringJob } from '../../models/StringJobs/StringJob'
 import * as StringJobService from '../../services/StringJobService'
 import stringJobStyles from './string_job.module.css'
+import HeaderContainer from '../../components/Modules/HeaderContainer'
 
 export default function StringJobs() {
     const router = useRouter();
     const [stringJobs, setStringJobs] = useState<StringJob[]>();
-    const [userRole, setUserRole] = useState<string>();
 
+    const handleCreateButtonClick = () => {
+        router.push('/StringJobs/Create')
+    }
     useEffect(() => {
-        async function GetAllStringJobs(){
+        async function GetAllStringJobs() {
             const response = await StringJobService.GetAllStringJobsAsync();
-            if (response.status === 200){
+            if (response.status === 200) {
                 const jobs = response.data;
-                jobs.sort((a,b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc) );
+                jobs.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 setStringJobs(jobs);
             }
         }
-        const userRole = localStorage.getItem('userRole');
-        if(userRole){
-            setUserRole(userRole);
-        }
         GetAllStringJobs();
     }, []);
-    return(
+    return (
         <main className={stringJobStyles.container}>
-            <div className={stringJobStyles.header_container}>
-                <h2>Stringing List Page</h2>
-                {userRole === 'admin' && (
-                    <Link href='/StringJobs/Create'>
-                        <button>Create</button>
-                    </Link>
-                )}
-            </div>
+            <HeaderContainer name="Stringing" handleButtonClick={handleCreateButtonClick} />
             <div className={stringJobStyles.table}>
                 <div className={stringJobStyles.table_header}>
                     <h4>Date</h4>
