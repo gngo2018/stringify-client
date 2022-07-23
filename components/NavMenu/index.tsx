@@ -14,13 +14,6 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
         setIsAdmin(false);
     }
 
-    useEffect(() => {
-        const currentUserRole = localStorage.getItem('userRole');
-        if (currentUserRole === 'admin') {
-            setIsAdmin(true);
-        }
-    }, [])
-
     return (
         <div className={isOpen ? `${menuStyles.menu_container} ${menuStyles.menu_container_is_open} ` : menuStyles.menu_container}>
             {isAdmin ?
