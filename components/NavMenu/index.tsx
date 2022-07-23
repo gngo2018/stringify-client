@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useNavMenuContext } from '../../contexts/NavMenuContext'
