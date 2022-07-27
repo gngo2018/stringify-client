@@ -24,7 +24,7 @@ export default function ClientRackets() {
     }, []);
     return (
         <main className={clientRacketStyles.container}>
-            <HeaderContainer name="Cient Racket" handleButtonClick={handleButtonOnClick} />
+            <HeaderContainer name="Client Racket" handleButtonClick={handleButtonOnClick} />
             <div className={clientRacketStyles.table}>
                 <div className={clientRacketStyles.table_header}>
                     <h4>Serial Number</h4>
