@@ -44,6 +44,12 @@ const Home: NextPage = () => {
               <p>Page to view all rackets clients are using</p>
             </a>
           </Link>
+          <Link href='/ClientRackets'>
+            <a className={styles.card}>
+              <h2>Client Rackets &rarr;</h2>
+              <p>Assign rackets to clients by serial number</p>
+            </a>
+          </Link>
           <Link href='/'>
             <a className={styles.card}>
               <h2>Analytics &rarr;</h2>

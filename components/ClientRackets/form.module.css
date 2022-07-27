@@ -1,0 +1,10 @@
+.form_container input,
+.form_container select {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.form_container button {
+    margin-top: 15px;
+}
