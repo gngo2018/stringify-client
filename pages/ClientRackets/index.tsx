@@ -28,7 +28,8 @@ export default function ClientRackets() {
             <div className={clientRacketStyles.table}>
                 <div className={clientRacketStyles.table_header}>
                     <h4>Serial Number</h4>
-                    <h4>Client</h4>
+                    <h4>First Name</h4>
+                    <h4>Last Name</h4>
                     <h4>Racket</h4>
                 </div>
                 {clientRackets && (
@@ -37,8 +38,9 @@ export default function ClientRackets() {
                             <Link href={'/ClientRackets/Detail/' + cl.id} key={cl.id}>
                                 <div className={clientRacketStyles.table_row}>
                                     <span>{cl.serialNumber}</span>
-                                    <span>{cl.clientId}</span>
-                                    <span>{cl.racketId}</span>
+                                    <span>{cl.clientFirstName}</span>
+                                    <span>{cl.clientLastName}</span>
+                                    <span>{cl.racketBrand} {cl.racketModel} {cl.racketYear}</span>
                                 </div>
                             </Link>
                         )
