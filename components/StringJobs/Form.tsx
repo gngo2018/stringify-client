@@ -1,6 +1,9 @@
 import { AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import * as ClientRacketService from '../../services/ClientRacketService'
+import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 import { Client } from '../../models/Clients/Client'
 import { StringJobFormFields } from '../../models/StringJobs/StringJobForm'
 import * as StringJobService from '../../services/StringJobService'
@@ -15,6 +18,19 @@ export interface FormProps {
 export default function StringJobForm(props: FormProps) {
     const router = useRouter();
     const { register, handleSubmit } = useForm<StringJobFormFields>();
+    const [clientRackets, setClientRackets] = useState<ClientRacket[]>([])
+
+    async function GetRacketsByClientId(e: string){
+        if(e === ''){
+            setClientRackets([]);
+        }
+        else{
+            const response = await ClientRacketService.GetRacketsByClientId(parseInt(e));
+            if(response.status === 200){
+                setClientRackets(response.data);
+            }
+        }
+    }
 
     const onSubmit = handleSubmit(async (data) => {
         let response: AxiosResponse;
@@ -40,7 +56,7 @@ export default function StringJobForm(props: FormProps) {
                 type='date'
             />
             <label>Client</label>
-            <select {...register('clientId')}>
+            <select {...register('clientId')} onChange={(e) => GetRacketsByClientId(e.target.value)}>
                 <option value=''></option>
                 {props.clients && (
                     props.clients.map((c) => {
@@ -53,9 +69,17 @@ export default function StringJobForm(props: FormProps) {
                 )}
             </select>
             <label>Racket</label>
-            <input
-                {...register('racket')}
-            />
+            <select {...register('clientRacketId')}>
+                {clientRackets && (
+                    clientRackets.map((cr) => {
+                        return (
+                            <option key={cr.clientRacketId} value={cr.clientRacketId}>
+                                {cr.serialNumber} - {cr.racketBrand} {cr.racketModel} {cr.racketYear}
+                            </option>
+                        )
+                    })
+                )}
+            </select>
             <label>String</label>
             <input
                 {...register('stringName')}

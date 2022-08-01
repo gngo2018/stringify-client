@@ -16,3 +16,8 @@ export async function CreateClientRacketAsync(clientRacket: ClientRacketFormProp
     const response = await axios.post(url, clientRacket);
     return response;
 }
+
+export async function GetRacketsByClientId(id: number){
+    const response = await axios.get(url + '/client/' + id);
+    return response;
+}

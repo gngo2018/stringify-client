@@ -33,14 +33,14 @@ export default function ClientRackets() {
                     <h4>Racket</h4>
                 </div>
                 {clientRackets && (
-                    clientRackets.map(cl => {
+                    clientRackets.map(cr => {
                         return (
-                            <Link href={'/ClientRackets/Detail/' + cl.id} key={cl.id}>
+                            <Link href={'/ClientRackets/Detail/' + cr.clientRacketId} key={cr.clientRacketId}>
                                 <div className={clientRacketStyles.table_row}>
-                                    <span>{cl.serialNumber}</span>
-                                    <span>{cl.clientFirstName}</span>
-                                    <span>{cl.clientLastName}</span>
-                                    <span>{cl.racketBrand} {cl.racketModel} {cl.racketYear}</span>
+                                    <span>{cr.serialNumber}</span>
+                                    <span>{cr.clientFirstName}</span>
+                                    <span>{cr.clientLastName}</span>
+                                    <span>{cr.racketBrand} {cr.racketModel} {cr.racketYear}</span>
                                 </div>
                             </Link>
                         )

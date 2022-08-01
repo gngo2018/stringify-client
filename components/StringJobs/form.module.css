@@ -1,14 +1,26 @@
-.form_container{
-    padding:0 3%;
-    height:80vh;
+.form_container {
+    padding: 0 3%;
+    height: 80vh;
 }
 
-.form_container input, .form_container select, .form_container textarea{
-    display:block;
-    margin: 5px 0;
-}
-
-.form_container button{
+.form_container input,
+.form_container select,
+.form_container textarea {
     display: block;
-    margin-top:15px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.form_container button {
+    display: block;
+    margin-top: 15px;
+}
+
+@media (min-width: 1024px) {
+    .form_container input,
+    .form_container select,
+    .form_container textarea {
+        width: 25%;
+        margin: 10px 0;
+    }
 }
