@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { StringJob } from '../models/StringJobs/StringJob'
 import { StringJobFormFields } from '../models/StringJobs/StringJobForm'
+import { StringJobListItem } from '../models/StringJobs/StringJobListItem';
 
 const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'stringjobs';
 
 export async function GetAllStringJobsAsync(){
-    const response = await axios.get<StringJob[]>(url);
+    const response = await axios.get<StringJobListItem[]>(url);
     return response;
 }
 
