@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as ClientRacketService from '../../services/ClientRacketService'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
@@ -17,7 +17,7 @@ export interface FormProps {
 
 export default function StringJobForm(props: FormProps) {
     const router = useRouter();
-    const { register, handleSubmit } = useForm<StringJobFormFields>();
+    const { register, handleSubmit, setValue, reset } = useForm<StringJobFormFields>();
     const [clientRackets, setClientRackets] = useState<ClientRacket[]>([])
 
     async function GetRacketsByClientId(e: string){
@@ -34,7 +34,9 @@ export default function StringJobForm(props: FormProps) {
 
     const onSubmit = handleSubmit(async (data) => {
         let response: AxiosResponse;
+        
         if (props.source === 'update' && props.stringJobId) {
+        console.log(data);
             response = await StringJobService.UpdateStringJobAsync(props.stringJobId, data);
         }
         else {
@@ -42,10 +44,27 @@ export default function StringJobForm(props: FormProps) {
         }
 
         if(response.status === 200){
-            console.log(response.data);
             router.push('/StringJobs');
         }
     });
+
+    useEffect(() => {
+        async function GetStringJobById(id: number){
+            const response = await StringJobService.GetStringJobById(id);
+            if(response.status === 200){
+                const stringJob = response.data;
+                console.log(stringJob);
+                reset(stringJob);
+            }
+
+            const clientId = response.data.clientId;
+            await GetRacketsByClientId(clientId);
+        }
+
+        if(props.source === 'update' && props.stringJobId){
+            GetStringJobById(props.stringJobId);
+        }
+    }, [props])
 
     return (
         <form className={formStyles.form_container} onSubmit={onSubmit}>
