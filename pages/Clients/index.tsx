@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+import HeaderContainer from '../../components/Modules/HeaderContainer'
 import { Client } from '../../models/Clients/Client'
 import * as ClientService from '../../services/ClientService'
 import clientStyles from './client.module.css'
 
 export default function Clients() {
+    const router = useRouter();
     const [clients, setClients] = useState<Client[]>();
+
+    const handleButtonOnClick = () => {
+        router.push('/Clients/Create')
+    }
 
     useEffect(() => {
         async function GetAllClients() {
@@ -18,12 +25,7 @@ export default function Clients() {
 
     return (
         <main className={clientStyles.container}>
-            <div className={clientStyles.header_container}>
-                <h2>Client List Page</h2>
-                <Link href="/Clients/Create">
-                    <button>Create</button>
-                </Link>
-            </div>
+        <HeaderContainer name="Client" handleButtonClick={handleButtonOnClick} />
             <div className={clientStyles.client_container}>
                 {
                     clients &&
