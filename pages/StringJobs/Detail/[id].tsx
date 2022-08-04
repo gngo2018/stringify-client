@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Client } from '../../../models/Clients/Client'
-import { StringJob } from '../../../models/StringJobs/StringJob'
+import { StringJobDetailItem } from '../../../models/StringJobs/StringJobDetailItem'
 import * as ClientService from '../../../services/ClientService'
 import * as StringJobService from '../../../services/StringJobService'
 import detailStyles from './detail.module.css'
@@ -10,8 +10,7 @@ import detailStyles from './detail.module.css'
 export default function StringJobDetail() {
     const router = useRouter();
     const { id } = router.query;
-    const [stringJob, setStringJob] = useState<StringJob>()
-    const [client, setClient] = useState<Client>()
+    const [stringJob, setStringJob] = useState<StringJobDetailItem>()
     const [userRole, setUserRole] = useState('guest');
 
     const handleDelete = async () => {
@@ -32,9 +31,6 @@ export default function StringJobDetail() {
                 const response = await StringJobService.GetStringJobById(stringJobId);
                 if (response.status === 200) {
                     setStringJob(response.data);
-
-                    const client = await ClientService.GetClientById(response.data.clientId);
-                    setClient(client)
                 }
                 const userRole = localStorage.getItem('userRole');
                 if(userRole){
@@ -47,10 +43,10 @@ export default function StringJobDetail() {
     }, [id]);
     return (
         <main className={detailStyles.detail_container}>
-            <h2>Job Detail - {client?.firstName} {client?.lastName}</h2>
+            <h2>Job Detail - {stringJob?.clientFirstName}</h2>
             {userRole === 'admin' && (
                 <div className={detailStyles.button_container}>
-                    <Link href={'/StringJobs/Update/' + stringJob?.id}>
+                    <Link href={'/StringJobs/Update/' + stringJob?.stringJobId}>
                         <button>Edit</button>
                     </Link>
                     <button onClick={() => handleDelete()}>Delete</button>
@@ -58,6 +54,10 @@ export default function StringJobDetail() {
             )}
             <label>Date Requested</label>
             <span>{stringJob?.jobDateTimeUtc.toString()}</span>
+            <label>Racket</label>
+            <span>{stringJob?.racketName}</span>
+            <label>Serial Number</label>
+            <span>{stringJob?.racketSerialNumber}</span>
             <label>String</label>
             <span>{stringJob?.stringName}</span>
             <label>String Type</label>
