@@ -1,9 +1,7 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { Client } from '../../../models/Clients/Client'
 import { StringJobDetailItem } from '../../../models/StringJobs/StringJobDetailItem'
-import * as ClientService from '../../../services/ClientService'
 import * as StringJobService from '../../../services/StringJobService'
 import detailStyles from './detail.module.css'
 
