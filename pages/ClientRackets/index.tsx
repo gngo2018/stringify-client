@@ -42,6 +42,7 @@ export default function ClientRackets() {
             const response = await GetAllClientRacketsAsync();
             if (response.status === 200) {
                 setClientRackets(response.data);
+                setClientRacketsByClient(response.data);
             }
         }
 

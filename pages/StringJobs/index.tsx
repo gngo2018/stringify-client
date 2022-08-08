@@ -44,6 +44,7 @@ export default function StringJobs() {
                 const jobs = response.data;
                 jobs.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 setStringJobs(jobs);
+                setStringJobsByClient(jobs);
             }
         }
         GetAllClients();
