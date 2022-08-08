@@ -17,7 +17,6 @@ export default function Header() {
             <NavMenuContext.Provider value={{isOpen, setIsOpen }}>
                 <header className={headerStyles.header_container}>
                     <Link href='/'>
-                        {/* <h2>Stringify</h2> */}
                         <div className={headerStyles.image}>
                             <Image 
                                 src='/assets/StringifyLogoHorizontal.png'
