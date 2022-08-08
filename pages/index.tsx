@@ -27,6 +27,7 @@ const Home: NextPage = () => {
           <Image
             src='/assets/StringifyLogoMain.png'
             objectFit='contain'
+            alt='home-logo'
             layout='fill'
           />
         </div>

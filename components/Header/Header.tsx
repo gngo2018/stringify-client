@@ -22,6 +22,7 @@ export default function Header() {
                             <Image 
                                 src='/assets/StringifyLogoHorizontal.png'
                                 objectFit='contain'
+                                alt='header-image'
                                 layout='fill'
                             />
                         </div>
