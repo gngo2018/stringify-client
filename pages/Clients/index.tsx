@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import Link from 'next/link'
 import HeaderContainer from '../../components/Modules/HeaderContainer'
 import { Client } from '../../models/Clients/Client'
@@ -32,7 +33,15 @@ export default function Clients() {
                     clients.map((c) => {
                         return (
                             <Link href={'/Clients/' + c.id} key={c.id}>
-                                <div className={clientStyles.client_card}>{c.firstName} {c.lastName}</div>
+                                <div className={clientStyles.client_card}>
+                                    <div className={clientStyles.card_image}>
+                                        <Image 
+                                            src='/assets/UserIcon.png'
+                                            layout='fill'
+                                        />
+                                    </div>
+                                    <span className={clientStyles.client_details}>{c.firstName} {c.lastName}</span>
+                                </div>
                             </Link>
                         )
                     })
