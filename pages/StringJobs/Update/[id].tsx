@@ -13,7 +13,7 @@ export default function UpdateStringJob() {
     useEffect(() => {
         async function SetFormProps() {
             if(id){
-                const response = await ClientService.GetAllClients();
+                const response = await ClientService.GetAllClientsAsync();
                 setClients(response);
                 setStringJobId(parseInt(id.toString()));
             }

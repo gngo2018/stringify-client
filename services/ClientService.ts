@@ -4,7 +4,7 @@ import { ClientCreate } from '../models/Clients/ClientCreate'
 
 const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients';
 
-export async function GetAllClients() {
+export async function GetAllClientsAsync() {
     let clientArray: Client[] = [];
     const response = await fetch(url);
     const clients = await response.json();

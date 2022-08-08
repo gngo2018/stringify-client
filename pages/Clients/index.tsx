@@ -16,7 +16,7 @@ export default function Clients() {
 
     useEffect(() => {
         async function GetAllClients() {
-            const clients = await ClientService.GetAllClients();
+            const clients = await ClientService.GetAllClientsAsync();
             setClients(clients);
         }
 

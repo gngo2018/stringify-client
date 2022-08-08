@@ -23,7 +23,7 @@ export default function ClientRacketForm() {
 
     useEffect(() => {
         async function GetClientsAndRackets(){
-            const clientResponse = await ClientService.GetAllClients();
+            const clientResponse = await ClientService.GetAllClientsAsync();
             if(clientResponse){
                 setClients(clientResponse);
             }

@@ -11,7 +11,7 @@ export default function CreateStringJob() {
     
     useEffect(() => {
         async function SetFormProps(){
-            const response = await ClientService.GetAllClients();
+            const response = await ClientService.GetAllClientsAsync();
             setClients(response);
         }
         const userRole = localStorage.getItem('userRole');
