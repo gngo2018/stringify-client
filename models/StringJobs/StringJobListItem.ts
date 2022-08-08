@@ -3,5 +3,6 @@ export type StringJobListItem = {
     jobDateTimeUtc: Date,
     clientFirstName: string,
     racketName: string,
-    racketSerialNumber: string
+    racketSerialNumber: string,
+    clientId: number
 }

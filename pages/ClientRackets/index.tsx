@@ -26,7 +26,7 @@ export default function ClientRackets() {
             setClientRacketsByClient(filteredClients);
         }
         else{
-            setClientRacketsByClient([]);
+            setClientRacketsByClient(inMemoryClientRackets);
         }
     }
 
