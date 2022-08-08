@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
@@ -9,7 +10,7 @@ const Home: NextPage = () => {
   const router = useRouter();
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
-    if(!userRole){
+    if (!userRole) {
       localStorage.setItem('userRole', 'guest')
     }
   }, [])
@@ -22,9 +23,13 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Stringify!
-        </h1>
+        <div className={styles.image}>
+          <Image
+            src='/assets/StringifyLogoMain.png'
+            objectFit='contain'
+            layout='fill'
+          />
+        </div>
         <div className={styles.grid}>
           <Link href='/Clients'>
             <a className={styles.card}>

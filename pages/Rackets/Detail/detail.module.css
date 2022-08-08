@@ -1,14 +1,14 @@
-.detail_container {
+.container {
     padding: 3%;
 }
 
-.detail_container h2 {
+.container h2 {
     margin: 0 0 10px 0;
     color: var(--secondary);
 }
 
 
-.detail_container span {
+.container span {
     display: block;
     margin-bottom: 10px;
     color: var(--secondary);
