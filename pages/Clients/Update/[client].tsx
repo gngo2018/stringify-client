@@ -7,7 +7,7 @@ import clientUpdateStyles from './client_update.module.css'
 
 export default function UpdateClient() {
     const router = useRouter();
-    const { register, handleSubmit } = useForm<Client>();
+    const { register, handleSubmit, reset } = useForm<Client>();
     const { client } = router.query;
     const [clientData, setClientData] = useState<Client>();
 
@@ -29,6 +29,7 @@ export default function UpdateClient() {
         if (client) {
             const data = JSON.parse(client.toString()) as Client;
             setClientData(data)
+            reset(data)
         }
     }, [client]);
 
@@ -38,35 +39,30 @@ export default function UpdateClient() {
             <label>First Name</label>
             <input
                 {...register('firstName')}
-                placeholder={clientData?.firstName}
                 name="firstName"
                 required
             />
             <label>Last Name</label>
             <input
                 {...register('lastName')}
-                placeholder={clientData?.lastName}
                 name="lastName"
                 required
             />
             <label>Phone Number</label>
             <input
                 {...register('phoneNumber')}
-                placeholder="Phone Number"
                 name="phoneNumber"
                 required
             />
             <label>Email</label>
             <input
                 {...register('emailAddress')}
-                placeholder="Email"
                 name="emailAddress"
                 required
             />
             <label>Client Preferred Racket</label>
             <input
                 {...register('racket')}
-                placeholder={clientData?.racket}
                 name="racket"
                 required
             />

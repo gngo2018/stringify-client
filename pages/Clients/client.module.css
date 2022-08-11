@@ -37,13 +37,14 @@
 @media (min-width: 1000px) {
     .client_container{
         display: flex;
-        justify-content:baseline;
+        justify-content:space-between;
+        flex-wrap: wrap;
     }
 
     .client_card{
         margin:1rem;
         height:10rem;
-        width:30rem;
+        width:20%;
     }
 
     .card_image{

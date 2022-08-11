@@ -53,7 +53,6 @@ export default function StringJobForm(props: FormProps) {
             const response = await StringJobService.GetStringJobById(id);
             if(response.status === 200){
                 const stringJob = response.data;
-                console.log(stringJob);
                 reset(stringJob);
             }
 
