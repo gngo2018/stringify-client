@@ -37,12 +37,12 @@
 @media (min-width: 1000px) {
     .client_container{
         display: flex;
-        justify-content:space-between;
         flex-wrap: wrap;
     }
 
     .client_card{
         margin:1rem;
+        margin-left:4%;
         height:10rem;
         width:20%;
     }
