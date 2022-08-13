@@ -1,41 +1,35 @@
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
 import HeaderContainer from '../../components/Modules/HeaderContainer'
 import { Client } from '../../models/Clients/Client'
-import * as ClientService from '../../services/ClientService'
 import clientStyles from './client.module.css'
+import useFetch from '../../hooks/useFetch'
+const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients'
 
 export default function Clients() {
     const router = useRouter();
-    const [clients, setClients] = useState<Client[]>();
+    const { data, isLoading, error } = useFetch(url);
 
     const handleButtonOnClick = () => {
         router.push('/Clients/Create')
     }
 
-    useEffect(() => {
-        async function GetAllClients() {
-            const clients = await ClientService.GetAllClientsAsync();
-            setClients(clients);
-        }
-
-        GetAllClients();
-    }, []);
-
     return (
         <main className={clientStyles.container}>
-        <HeaderContainer name="Client" handleButtonClick={handleButtonOnClick} />
+            <HeaderContainer name="Client" handleButtonClick={handleButtonOnClick} />
             <div className={clientStyles.client_container}>
+                {isLoading && (
+                    <div>Loading...</div>
+                )}
                 {
-                    clients &&
-                    clients.map((c) => {
+                    data &&
+                    data.map((c: Client) => {
                         return (
                             <Link href={'/Clients/' + c.id} key={c.id}>
                                 <div className={clientStyles.client_card}>
                                     <div className={clientStyles.card_image}>
-                                        <Image 
+                                        <Image
                                             src='/assets/UserIcon.png'
                                             layout='fill'
                                         />
