@@ -1,15 +1,16 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
-import HeaderContainer from '../../components/Modules/HeaderContainer'
-import { Client } from '../../models/Clients/Client'
-import clientStyles from './client.module.css'
 import useFetch from '../../hooks/useFetch'
-const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients'
+import { Client } from '../../models/Clients/Client'
+import HeaderContainer from '../../components/Modules/HeaderContainer'
+import LoadingSpinner from '../../components/Modules/LoadingSpinner'
+import clientStyles from './client.module.css'
 
 export default function Clients() {
+    const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients'
     const router = useRouter();
-    const { data, isLoading, error } = useFetch(url);
+    const clientFetch = useFetch<Client[]>(url);
 
     const handleButtonOnClick = () => {
         router.push('/Clients/Create')
@@ -19,12 +20,12 @@ export default function Clients() {
         <main className={clientStyles.container}>
             <HeaderContainer name="Client" handleButtonClick={handleButtonOnClick} />
             <div className={clientStyles.client_container}>
-                {isLoading && (
-                    <div>Loading...</div>
+                {clientFetch.isLoading && (
+                    <LoadingSpinner />
                 )}
                 {
-                    data &&
-                    data.map((c: Client) => {
+                    clientFetch.data &&
+                    clientFetch.data.map((c) => {
                         return (
                             <Link href={'/Clients/' + c.id} key={c.id}>
                                 <div className={clientStyles.client_card}>
@@ -32,6 +33,7 @@ export default function Clients() {
                                         <Image
                                             src='/assets/UserIcon.png'
                                             layout='fill'
+                                            alt='user-icon'
                                         />
                                     </div>
                                     <span className={clientStyles.client_details}>{c.firstName} {c.lastName}</span>
