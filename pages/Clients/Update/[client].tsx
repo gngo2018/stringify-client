@@ -31,7 +31,7 @@ export default function UpdateClient() {
             setClientData(data)
             reset(data)
         }
-    }, [client]);
+    }, [client, reset]);
 
     return (
         <form className={clientUpdateStyles.container} onSubmit={onSubmit}>
