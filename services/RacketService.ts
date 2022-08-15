@@ -11,7 +11,10 @@ export function GetStaticRacketBrands() {
         { id: 3, name: 'Head' },
         { id: 4, name: 'Yonex' },
         { id: 5, name: 'Technifibre' },
-        { id: 6, name: 'Diadem' }
+        { id: 6, name: 'Diadem' },
+        { id: 7, name: 'Prince' },
+        { id: 8, name: 'Dunlop' },
+        { id: 9, name: 'Vokl' }
     ]
 
     return brands;
