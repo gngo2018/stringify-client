@@ -61,9 +61,11 @@ export default function StringJobForm(props: FormProps) {
         }
 
         if(props.source === 'update' && props.stringJobId){
+            console.log('running');
+            
             GetStringJobById(props.stringJobId);
         }
-    }, [props])
+    }, [props, reset])
 
     return (
         <form className={formStyles.form_container} onSubmit={onSubmit}>

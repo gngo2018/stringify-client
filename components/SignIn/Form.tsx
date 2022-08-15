@@ -10,12 +10,12 @@ export default function SignInForm() {
     const { setIsAdmin } = useAuthContext();
 
     const onSubmit = handleSubmit(async (data) => {
-        await SignIn(data);
+        SignIn(data);
         const userRole = localStorage.getItem('userRole');
         if(userRole === 'admin'){
             setIsAdmin(true);
         }
-        router.push('/');
+        router.back();
     })
 
     return(
