@@ -1,0 +1,58 @@
+.container {
+    margin: 0 10px;
+}
+
+.container_flex_item h2 {
+    text-align: center;
+}
+
+.date_range_flex_container label, .date_range_flex_container input{
+    display: block;
+    margin-bottom:10px;
+}
+
+.date_range_flex_container {
+    display: flex;
+    margin: 10px;
+}
+
+.date_range_flex_item{
+    margin-right: 25px;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin: 0 5%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .date_range_flex_container {
+        display: flex;
+        margin: 1% 5%;
+    }
+
+    .date_range_flex_container input{
+        cursor: pointer;
+    }
+
+    .container_flex_item{
+        width:45%;
+    }
+
+    .container_flex_item canvas {
+        width:100% !important;
+    }
+
+    .revenue_chart_container {
+        position: relative;
+        height:250px;
+    }
+}
+
+@media (min-width:1920px) {
+    .revenue_chart_container {
+        position: relative;
+        height:500px;
+    }
+}

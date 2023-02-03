@@ -56,7 +56,7 @@ const Home: NextPage = () => {
               <p>Assign rackets to clients by serial number</p>
             </a>
           </Link>
-          <Link href='/'>
+          <Link href='/Analytics'>
             <a className={styles.card}>
               <h2>Analytics &rarr;</h2>
               <p>Page to view analytics about clients and rackets. Coming soon!</p>
