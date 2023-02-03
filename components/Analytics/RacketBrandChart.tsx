@@ -55,7 +55,9 @@ export default function RacketBrandChart() {
             }
         },
         elements: {
-
+            bar: {
+                backgroundColor: '#11888F'
+            }
         },
     }
 
