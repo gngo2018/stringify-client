@@ -14,8 +14,9 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { GetStaticRacketBrands } from '../../services/RacketService'
+import { AnalyticsDTO } from '../../services/AnalyticsService'
 
-export default function RacketBrandChart() {
+export default function RacketBrandChart({analyticsData}: {analyticsData: AnalyticsDTO[]}) {
     ChartJs.register(
         CategoryScale,
         LinearScale,
@@ -33,14 +34,16 @@ export default function RacketBrandChart() {
 
     racketBrands.map(r =>{
         racketBrandNames.push(r.name);
-        //TODO: Add logic to get all racket brands from string jobs and map to racketMetrics array
+        const racketCount = analyticsData.filter(d => d.brand == r.name).length;
+        racketMetrics.push(racketCount);
+        
     });
 
     const chartData = {
         labels: racketBrandNames,
         datasets: [
             {
-                data: [10, 6, 30, 40, 5, 60, 70, 8, 90, 10, 110, 120],
+                data: racketMetrics,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1

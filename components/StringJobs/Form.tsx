@@ -36,7 +36,6 @@ export default function StringJobForm(props: FormProps) {
         let response: AxiosResponse;
         
         if (props.source === 'update' && props.stringJobId) {
-        console.log(data);
             response = await StringJobService.UpdateStringJobAsync(props.stringJobId, data);
         }
         else {
@@ -61,8 +60,6 @@ export default function StringJobForm(props: FormProps) {
         }
 
         if(props.source === 'update' && props.stringJobId){
-            console.log('running');
-            
             GetStringJobById(props.stringJobId);
         }
     }, [props, reset])

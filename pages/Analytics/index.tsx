@@ -1,19 +1,16 @@
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 import RacketBrandChart from '../../components/Analytics/RacketBrandChart'
 import RevenuePerMonthChart from '../../components/Analytics/RevenuePerMonthChart'
-import { GetAnalyticsDataAsync } from '../../services/AnalyticsService'
+import { AnalyticsDTO, GetAnalyticsDataAsync } from '../../services/AnalyticsService'
 import analyticsStyles from './analytics.module.css'
 
 export default function Analytics() {
-    // useEffect(() => {
-    //     async function GetAnalyticsData() {
-    //         const res = await GetAnalyticsDataAsync();
-    //         if(res.status === 200){
-    //             console.log(res.data);
-    //         }
-    //     }
-    //     GetAnalyticsData();
-    // }, []);
+    const { data } = useQuery('analyticsData', async () => {
+        const res = await GetAnalyticsDataAsync();
+        if (res.status === 200) {
+            return res.data as AnalyticsDTO[];
+        }
+    });
 
     return (
         <main>
@@ -27,16 +24,19 @@ export default function Analytics() {
                     <input type="date" />
                 </div>
             </div>
-            <div className={analyticsStyles.container}>
-                <div className={analyticsStyles.container_flex_item}>
-                    <h2>Revenue Per Month</h2>
-                    <RevenuePerMonthChart />
+            {data && (
+                <div className={analyticsStyles.container}>
+                    <div className={analyticsStyles.container_flex_item}>
+                        <h2>Revenue Per Month</h2>
+                        <RevenuePerMonthChart analyticsData={data} />
+                    </div>
+                    <div className={analyticsStyles.container_flex_item}>
+                        <h2>Popular Racket Brands</h2>
+                        <RacketBrandChart analyticsData={data} />
+                    </div>
                 </div>
-                <div className={analyticsStyles.container_flex_item}>
-                    <h2>Popular Racket Brands</h2>
-                    <RacketBrandChart />
-                </div>
-            </div>
+            )}
+
         </main>
     )
 }

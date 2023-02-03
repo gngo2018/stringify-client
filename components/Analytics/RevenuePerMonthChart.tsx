@@ -12,8 +12,9 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import revenueStyles from './revenue.module.css'
+import { AnalyticsDTO } from '../../services/AnalyticsService';
 
-export default function RevenuePerMonthChart() {
+export default function RevenuePerMonthChart({analyticsData}: {analyticsData: AnalyticsDTO[]}) {
     ChartJs.register(
         CategoryScale,
         LinearScale,
