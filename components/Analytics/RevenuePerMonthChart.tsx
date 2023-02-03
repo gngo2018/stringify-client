@@ -11,7 +11,6 @@ import {
     Filler
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import revenueStyles from './revenue.module.css'
 import { AnalyticsDTO } from '../../services/AnalyticsService';
 
 export default function RevenuePerMonthChart({ analyticsData }: { analyticsData: AnalyticsDTO[] }) {
@@ -26,23 +25,23 @@ export default function RevenuePerMonthChart({ analyticsData }: { analyticsData:
         Filler
     );
 
+    const months = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const monthlyRevenue = [];
 
     //For loop to map the correct month number value
     for (let i = 0; i < 13; i++) {
         const monthData = analyticsData.filter(d => new Date(d.jobDateTime).getMonth() === i)
+        let totalMonthlyAmount = 0;
         if(monthData.length > 0){
-            const totalMonthlyAmount = monthData.reduceRight((accumulator, obj) => {
+            totalMonthlyAmount = monthData.reduceRight((accumulator, obj) => {
                 return accumulator + obj.chargeAmount;
             }, 0)
-            monthlyRevenue.push(totalMonthlyAmount);
-        } else {
-            monthlyRevenue.push(0);
         }
+        monthlyRevenue.push(totalMonthlyAmount);
     }
 
     const chartData = {
-        labels: ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: months,
         datasets: [
             {
                 data: monthlyRevenue,
