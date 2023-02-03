@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
+import { useAuthContext } from '../contexts/AuthContext'
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
       localStorage.setItem('userRole', 'guest')
     }
   }, [])
+  const {isAdmin} = useAuthContext();
   return (
     <div className={styles.container}>
       <Head>
@@ -56,12 +58,14 @@ const Home: NextPage = () => {
               <p>Assign rackets to clients by serial number</p>
             </a>
           </Link>
-          <Link href='/Analytics'>
-            <a className={styles.card}>
-              <h2>Analytics &rarr;</h2>
-              <p>Page to view analytics about clients and rackets. Coming soon!</p>
-            </a>
-          </Link>
+          {isAdmin && (
+            <Link href='/Analytics'>
+              <a className={styles.card}>
+                <h2>Analytics &rarr;</h2>
+                <p>Page to view analytics about clients and rackets. Coming soon!</p>
+              </a>
+            </Link>
+          )}
         </div>
       </main>
     </div>
