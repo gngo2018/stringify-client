@@ -33,7 +33,7 @@ export default function RacketDetail() {
             <h2>Racket Details</h2>
             {isAdmin && (
                 <div className={detailStyles.button_container}>
-                    <Link legacyBehavior href={'/Rackets/Update/' + racket?.id}>
+                    <Link href={'/Rackets/Update/' + racket?.id}>
                         <button>Edit</button>
                     </Link>
                     <button onClick={() => handleDelete()}>Delete</button>

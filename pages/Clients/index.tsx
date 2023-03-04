@@ -27,17 +27,15 @@ export default function Clients() {
                     clientFetch.data &&
                     clientFetch.data.map((c) => {
                         return (
-                            <Link legacyBehavior href={'/Clients/' + c.id} key={c.id}>
-                                <div className={clientStyles.client_card}>
-                                    <div className={clientStyles.card_image}>
-                                        <Image
-                                            src='/assets/UserIcon.png'
-                                            layout='fill'
-                                            alt='user-icon'
-                                        />
-                                    </div>
-                                    <span className={clientStyles.client_details}>{c.firstName} {c.lastName}</span>
+                            <Link href={'/Clients/' + c.id} key={c.id} className={clientStyles.client_card}>
+                                <div className={clientStyles.card_image}>
+                                    <Image
+                                        src='/assets/UserIcon.png'
+                                        layout='fill'
+                                        alt='user-icon'
+                                    />
                                 </div>
+                                <span className={clientStyles.client_details}>{c.firstName} {c.lastName}</span>
                             </Link>
                         )
                     })

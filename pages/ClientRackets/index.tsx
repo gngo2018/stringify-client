@@ -73,7 +73,7 @@ export default function ClientRackets() {
                 {clientRackets && clientRacketsByClient && (
                     clientRacketsByClient.map(cr => {
                         return (
-                            <Link legacyBehavior href={'/Rackets/Detail/' + cr.racketId} key={cr.clientRacketId}>
+                            <Link href={'/Rackets/Detail/' + cr.racketId} key={cr.clientRacketId}>
                                 <div className={clientRacketStyles.table_row}>
                                     <span>{cr.serialNumber}</span>
                                     <span>{cr.clientFirstName}</span>

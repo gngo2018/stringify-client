@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import * as ClientService from '../../services/ClientService'
 import * as StringJobService from '../../services/StringJobService'
 import { Client } from '../../models/Clients/Client'
 import clientDetailStyles from './client_detail.module.css'
-import Link from 'next/link'
 
 export default function ClientDetail() {
     const router = useRouter();
@@ -84,7 +84,7 @@ export default function ClientDetail() {
             {client?.stringJobs && (
                 client.stringJobs.map(sj => {
                     return (
-                        <Link legacyBehavior href={'/StringJobs/Detail/' + sj.id} key={sj.id}>
+                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
                             <div className={clientDetailStyles.string_job_card}>
                                 <span>Date: {sj.jobDateTimeUtc.toString()}</span>
                                 <span>Racket: {sj.racket}</span>

@@ -19,22 +19,22 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
                 <h4>Hello George</h4> :
                 <h4>Menu</h4>
             }
-            <Link legacyBehavior href='/Clients'>
+            <Link href='/Clients'>
                 <span onClick={() => setIsOpen(false)}>Clients</span>
             </Link>
-            <Link legacyBehavior href='/StringJobs'>
+            <Link href='/StringJobs'>
                 <span onClick={() => setIsOpen(false)}>String Jobs</span>
             </Link>
-            <Link legacyBehavior href='/Rackets'>
+            <Link href='/Rackets'>
                 <span onClick={() => setIsOpen(false)}>Rackets</span>
             </Link>
-            <Link legacyBehavior href='/ClientRackets'>
+            <Link href='/ClientRackets'>
                 <span onClick={() => setIsOpen(false)}>Client Rackets</span>
             </Link>
             <span>Analytics</span>
             {isAdmin ?
                 <span onClick={() => SignOut()}>Sign Out</span> :
-                <Link legacyBehavior href='/SignIn'>
+                <Link href='/SignIn'>
                     <span onClick={() => setIsOpen(false)}>Sign In</span>
                 </Link>
             }

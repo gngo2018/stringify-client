@@ -44,7 +44,7 @@ export default function StringJobDetail() {
             <h2>Job Detail - {stringJob?.clientFirstName}</h2>
             {userRole === 'admin' && (
                 <div className={detailStyles.button_container}>
-                    <Link legacyBehavior href={'/StringJobs/Update/' + stringJob?.stringJobId}>
+                    <Link href={'/StringJobs/Update/' + stringJob?.stringJobId}>
                         <button>Edit</button>
                     </Link>
                     <button onClick={() => handleDelete()}>Delete</button>
