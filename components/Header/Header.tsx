@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import headerStyles from './header.module.css'
 import NavMenu from '../NavMenu'
@@ -16,7 +16,7 @@ export default function Header() {
         <>
             <NavMenuContext.Provider value={{isOpen, setIsOpen }}>
                 <header className={headerStyles.header_container}>
-                    <Link href='/'>
+                    <Link legacyBehavior href='/'>
                         <div className={headerStyles.image}>
                             <Image 
                                 src='/assets/StringifyLogoHorizontal.png'

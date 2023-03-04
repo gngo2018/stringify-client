@@ -84,7 +84,7 @@ export default function ClientDetail() {
             {client?.stringJobs && (
                 client.stringJobs.map(sj => {
                     return (
-                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id}>
+                        <Link legacyBehavior href={'/StringJobs/Detail/' + sj.id} key={sj.id}>
                             <div className={clientDetailStyles.string_job_card}>
                                 <span>Date: {sj.jobDateTimeUtc.toString()}</span>
                                 <span>Racket: {sj.racket}</span>

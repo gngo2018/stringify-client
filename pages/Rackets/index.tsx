@@ -36,7 +36,7 @@ export default function Rackets() {
                 {rackets && (
                     rackets.map(r => {
                         return (
-                            <Link href={'/Rackets/Detail/' + r.id} key={r.id}>
+                            <Link legacyBehavior href={'/Rackets/Detail/' + r.id} key={r.id}>
                                 <div className={racketStyles.table_row}>
                                     <span>{r.brand}</span>
                                     <span>{r.model}</span>

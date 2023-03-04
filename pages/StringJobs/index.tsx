@@ -73,7 +73,7 @@ export default function StringJobs() {
                 {stringJobs && stringJobsByClient && (
                     stringJobsByClient.map(sj => {
                         return (
-                            <Link href={'/StringJobs/Detail/' + sj.stringJobId} key={sj.stringJobId}>
+                            <Link legacyBehavior href={'/StringJobs/Detail/' + sj.stringJobId} key={sj.stringJobId}>
                                 <div className={stringJobStyles.table_row}>
                                     <span>{sj.jobDateTimeUtc.toString()}</span>
                                     <span>{sj.clientFirstName}</span>

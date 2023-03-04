@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import useFetch from '../../hooks/useFetch'
 import { Client } from '../../models/Clients/Client'
@@ -27,7 +27,7 @@ export default function Clients() {
                     clientFetch.data &&
                     clientFetch.data.map((c) => {
                         return (
-                            <Link href={'/Clients/' + c.id} key={c.id}>
+                            <Link legacyBehavior href={'/Clients/' + c.id} key={c.id}>
                                 <div className={clientStyles.client_card}>
                                     <div className={clientStyles.card_image}>
                                         <Image
