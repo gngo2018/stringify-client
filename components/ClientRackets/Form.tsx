@@ -11,25 +11,36 @@ import formStyles from './form.module.css'
 export default function ClientRacketForm() {
     const router = useRouter();
     const { register, handleSubmit } = useForm<ClientRacketFormProps>();
-    const [ clients, setClients ] = useState<Client[]>([]);
-    const [ rackets, setRackets ] = useState<Racket[]>([]);
+    const [clients, setClients] = useState<Client[]>([]);
+    const [rackets, setRackets] = useState<Racket[]>([]);
 
     const onSubmit = handleSubmit(async (data) => {
         const response = await CreateClientRacketAsync(data);
-        if(response.status === 200) {
+        if (response.status === 200) {
             router.push('/ClientRackets');
         }
     });
 
     useEffect(() => {
-        async function GetClientsAndRackets(){
+        async function GetClientsAndRackets() {
             const clientResponse = await ClientService.GetAllClientsAsync();
-            if(clientResponse){
+            if (clientResponse) {
                 setClients(clientResponse);
             }
 
             const racketResponse = await RacketService.GetAllRacketsAsync();
-            if(racketResponse.status === 200){
+            if (racketResponse.status === 200) {
+                const rackets: Racket[] = racketResponse.data;
+                rackets.sort((a, b) => {
+                    if (a.brand < b.brand) {
+                        return -1;
+                    }
+                    if (a.brand > b.brand) {
+                        return 1; 
+                    }
+                    return 0;
+                });
+
                 setRackets(racketResponse.data);
             }
         }
@@ -40,7 +51,7 @@ export default function ClientRacketForm() {
     return (
         <form className={formStyles.form_container} onSubmit={onSubmit}>
             <label>Serial Number</label>
-            <input 
+            <input
                 {...register('serialNumber')}
                 required
             />
@@ -49,7 +60,7 @@ export default function ClientRacketForm() {
                 <option value=''></option>
                 {clients && (
                     clients.map((c) => {
-                        return(
+                        return (
                             <option key={c.id} value={c.id}>{c.firstName} {c.lastName}</option>
                         )
                     })
@@ -60,7 +71,7 @@ export default function ClientRacketForm() {
                 <option value=''></option>
                 {rackets && (
                     rackets.map((r) => {
-                        return(
+                        return (
                             <option key={r.id} value={r.id}>{r.brand} {r.model} {r.year}</option>
                         )
                     })
