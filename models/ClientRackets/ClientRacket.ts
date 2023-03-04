@@ -8,6 +8,7 @@ export type ClientRacket = {
     racketBrand: string,
     racketModel: string,
     racketYear: string,
+    timesStrung?: number,
     createdAt?: Date,
     updatedAt?: Date,
     deletedAt?: Date

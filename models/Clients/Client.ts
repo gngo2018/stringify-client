@@ -1,3 +1,4 @@
+import { ClientRacket } from "../ClientRackets/ClientRacket"
 import { StringJob } from "../StringJobs/StringJob"
 
 export type Client = {
@@ -11,4 +12,5 @@ export type Client = {
     updatedAt?: Date
     deletedAt?: Date
     stringJobs?: StringJob[]
+    clientRackets?: ClientRacket[]
 }

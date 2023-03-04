@@ -5,12 +5,18 @@ import * as ClientService from '../../services/ClientService'
 import * as StringJobService from '../../services/StringJobService'
 import { Client } from '../../models/Clients/Client'
 import clientDetailStyles from './client_detail.module.css'
+import TabNav from '../../components/Clients/TabNav'
+import ClientRacketTable from '../../components/ClientRackets/ClientRacketTable'
+import { GetRacketsByClientId } from '../../services/ClientRacketService'
 
 export default function ClientDetail() {
     const router = useRouter();
     const { id } = router.query;
     const [client, setClient] = useState<Client>();
     const [userRole, setUserRole] = useState('guest');
+    const [historyIsActive, setHistoryIsActive] = useState(true);
+    const [racketsIsActive, setRacketsIsActive] = useState(false);
+    const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -32,12 +38,32 @@ export default function ClientDetail() {
         }
     }
 
+    const handleActivePanelOnChange = (panelName: string) => {
+        setHistoryIsActive(false);
+        setRacketsIsActive(false);
+        setFutureJobsIsActive(false);
+
+        if (panelName.toUpperCase() === 'HISTORY') {
+            setHistoryIsActive(true);
+        }
+        else if (panelName.toUpperCase() === 'RACKETS') {
+            setRacketsIsActive(true);
+        }
+        else if (panelName.toUpperCase() === 'FUTUREJOBS') {
+            setFutureJobsIsActive(true)
+        }
+    }
+
     useEffect(() => {
         async function GetClientById() {
             if (id) {
                 const clientId = parseInt(id.toString());
                 const response = await ClientService.GetClientById(clientId);
                 const stringJobs = await GetStringJobsByClientId(clientId);
+                const clientRacketResponse = await GetRacketsByClientId(clientId);
+                if(clientRacketResponse.status === 200){
+                    response.clientRackets = clientRacketResponse.data;
+                }
                 stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 response.stringJobs = stringJobs;
                 setClient(response);
@@ -77,25 +103,31 @@ export default function ClientDetail() {
                     <button onClick={() => handleDelete()}>Delete</button>
                 </div>
             )}
-            <div className={clientDetailStyles.string_job_header_container}>
-                <h3>Stringing History</h3>
-                {/* <button>New Job</button> */}
-            </div>
-            {client?.stringJobs && (
-                client.stringJobs.map(sj => {
-                    return (
-                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
-                            <div className={clientDetailStyles.string_job_card}>
-                                <span>Date: {sj.jobDateTimeUtc.toString()}</span>
-                                <span>Racket: {sj.racket}</span>
-                                <span>String: {sj.stringName}</span>
-                                <span>String Type: {sj.stringType}</span>
-                                <span>Tension: {sj.tension} {sj.tensionType}</span>
-                            </div>
-                        </Link>
-                    )
-                })
-            )}
+            <article className={clientDetailStyles.main_content_container}>
+                {historyIsActive && (
+                    <section className={clientDetailStyles.string_job_history_container}>
+                        {client?.stringJobs && (
+                            client.stringJobs.map(sj => {
+                                return (
+                                    <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
+                                        <div className={clientDetailStyles.string_job_card}>
+                                            <span>Date: {sj.jobDateTimeUtc.toString()}</span>
+                                            <span>Racket: {sj.racket}</span>
+                                            <span>String: {sj.stringName}</span>
+                                            <span>String Type: {sj.stringType}</span>
+                                            <span>Tension: {sj.tension} {sj.tensionType}</span>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        )}
+                    </section>
+                )}
+                {racketsIsActive && client?.clientRackets &&(
+                    <ClientRacketTable clientRackets={client.clientRackets}/>
+                )}
+            </article>
+            <TabNav setActivePanel={(panelName) => handleActivePanelOnChange(panelName)} />
         </div>
     )
 }
