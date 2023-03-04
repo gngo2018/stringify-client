@@ -20,12 +20,12 @@ export default function ClientRackets() {
 
     const handleSelectOnChange = (clientId: string) => {
         const inMemoryClientRackets = clientRackets;
-        if(clientId !== ''){
+        if (clientId !== '') {
             const id = parseInt(clientId);
             const filteredClients = inMemoryClientRackets?.filter(cr => cr.clientId === id);
             setClientRacketsByClient(filteredClients);
         }
-        else{
+        else {
             setClientRacketsByClient(inMemoryClientRackets);
         }
     }
@@ -33,7 +33,7 @@ export default function ClientRackets() {
     useEffect(() => {
         async function GetAllClients() {
             const clients = await GetAllClientsAsync();
-            if(clients){
+            if (clients) {
                 setClients(clients)
             }
         }
@@ -49,7 +49,7 @@ export default function ClientRackets() {
         GetAllClients();
         GetAllClientRackets();
     }, []);
-    
+
     return (
         <main className={clientRacketStyles.container}>
             <HeaderContainer name="Client Racket" handleButtonClick={handleButtonOnClick} />
@@ -73,13 +73,11 @@ export default function ClientRackets() {
                 {clientRackets && clientRacketsByClient && (
                     clientRacketsByClient.map(cr => {
                         return (
-                            <Link href={'/Rackets/Detail/' + cr.racketId} key={cr.clientRacketId}>
-                                <div className={clientRacketStyles.table_row}>
-                                    <span>{cr.serialNumber}</span>
-                                    <span>{cr.clientFirstName}</span>
-                                    <span>{cr.clientLastName}</span>
-                                    <span>{cr.racketBrand} {cr.racketModel} {cr.racketYear}</span>
-                                </div>
+                            <Link href={'/Rackets/Detail/' + cr.racketId} key={cr.clientRacketId} className={clientRacketStyles.table_row}>
+                                <span>{cr.serialNumber}</span>
+                                <span>{cr.clientFirstName}</span>
+                                <span>{cr.clientLastName}</span>
+                                <span>{cr.racketBrand} {cr.racketModel} {cr.racketYear}</span>
                             </Link>
                         )
                     })

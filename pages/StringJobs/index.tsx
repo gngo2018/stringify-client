@@ -20,12 +20,12 @@ export default function StringJobs() {
 
     const handleSelectOnChange = (clientId: string) => {
         const inMemoryStringJobs = stringJobs;
-        if(clientId !== ''){
+        if (clientId !== '') {
             const id = parseInt(clientId);
             const filteredClients = inMemoryStringJobs?.filter(sr => sr.clientId === id);
             setStringJobsByClient(filteredClients);
         }
-        else{
+        else {
             setStringJobsByClient(inMemoryStringJobs);
         }
     }
@@ -33,11 +33,11 @@ export default function StringJobs() {
     useEffect(() => {
         async function GetAllClients() {
             const clients = await GetAllClientsAsync();
-            if(clients){
+            if (clients) {
                 setClients(clients)
             }
         }
-        
+
         async function GetAllStringJobs() {
             const response = await StringJobService.GetAllStringJobsAsync();
             if (response.status === 200) {
@@ -73,13 +73,11 @@ export default function StringJobs() {
                 {stringJobs && stringJobsByClient && (
                     stringJobsByClient.map(sj => {
                         return (
-                            <Link href={'/StringJobs/Detail/' + sj.stringJobId} key={sj.stringJobId}>
-                                <div className={stringJobStyles.table_row}>
-                                    <span>{sj.jobDateTimeUtc.toString()}</span>
-                                    <span>{sj.clientFirstName}</span>
-                                    <span>{sj.racketSerialNumber}</span>
-                                    <span>{sj.racketName}</span>
-                                </div>
+                            <Link href={'/StringJobs/Detail/' + sj.stringJobId} key={sj.stringJobId} className={stringJobStyles.table_row}>
+                                <span>{sj.jobDateTimeUtc.toString()}</span>
+                                <span>{sj.clientFirstName}</span>
+                                <span>{sj.racketSerialNumber}</span>
+                                <span>{sj.racketName}</span>
                             </Link>
                         )
                     })

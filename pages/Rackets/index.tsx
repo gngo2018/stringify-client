@@ -23,7 +23,7 @@ export default function Rackets() {
         }
         GetAllRackets();
     }, []);
-    
+
     return (
         <main className={racketStyles.container}>
             <HeaderContainer name="Racket" handleButtonClick={handleCreateButtonClick} />
@@ -36,12 +36,10 @@ export default function Rackets() {
                 {rackets && (
                     rackets.map(r => {
                         return (
-                            <Link href={'/Rackets/Detail/' + r.id} key={r.id}>
-                                <div className={racketStyles.table_row}>
-                                    <span>{r.brand}</span>
-                                    <span>{r.model}</span>
-                                    <span>{r.year}</span>
-                                </div>
+                            <Link href={'/Rackets/Detail/' + r.id} key={r.id} className={racketStyles.table_row}>
+                                <span>{r.brand}</span>
+                                <span>{r.model}</span>
+                                <span>{r.year}</span>
                             </Link>
                         )
                     })
