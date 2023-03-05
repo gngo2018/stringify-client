@@ -31,9 +31,13 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
             <Link href='/ClientRackets'>
                 <span onClick={() => setIsOpen(false)}>Client Rackets</span>
             </Link>
-            <span>Analytics</span>
             {isAdmin ?
-                <span onClick={() => SignOut()}>Sign Out</span> :
+                <>
+                    <Link href='/Analytics'>
+                        <span onClick={() => setIsOpen(false)}>Analytics</span>
+                    </Link>
+                    <span onClick={() => SignOut()}>Sign Out</span>
+                </> :
                 <Link href='/SignIn'>
                     <span onClick={() => setIsOpen(false)}>Sign In</span>
                 </Link>
