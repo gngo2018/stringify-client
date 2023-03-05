@@ -2,6 +2,10 @@
     padding:0 3%;
 }
 
+.container h2{
+    padding:0 5px;
+}
+
 .client_detail_container {
     margin-bottom: 10px;
 }
@@ -15,8 +19,9 @@
 }
 
 .main_content_container{
-    height:55vh;
-    padding: 20px 5px;
+    height:50vh;
+    padding: 10px 5px;
+    margin: 10px 0;
     overflow: auto;
 }
 
@@ -53,4 +58,10 @@
 
 .string_job_card:active{
     background-color: var(--tertiary);
+}
+
+@media (min-width: 1024px) {
+    .main_content_container{
+        height:70vh;
+    }
 }

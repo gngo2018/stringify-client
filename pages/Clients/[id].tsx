@@ -17,6 +17,7 @@ export default function ClientDetail() {
     const [historyIsActive, setHistoryIsActive] = useState(true);
     const [racketsIsActive, setRacketsIsActive] = useState(false);
     const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
+    const [infoIsActive, setInfoIsActive] = useState(false);
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -42,6 +43,7 @@ export default function ClientDetail() {
         setHistoryIsActive(false);
         setRacketsIsActive(false);
         setFutureJobsIsActive(false);
+        setInfoIsActive(false);
 
         if (panelName.toUpperCase() === 'HISTORY') {
             setHistoryIsActive(true);
@@ -50,7 +52,10 @@ export default function ClientDetail() {
             setRacketsIsActive(true);
         }
         else if (panelName.toUpperCase() === 'FUTUREJOBS') {
-            setFutureJobsIsActive(true)
+            setFutureJobsIsActive(true);
+        }
+        else if (panelName.toUpperCase() === 'INFO') {
+            setInfoIsActive(true);
         }
     }
 
@@ -61,7 +66,7 @@ export default function ClientDetail() {
                 const response = await ClientService.GetClientById(clientId);
                 const stringJobs = await GetStringJobsByClientId(clientId);
                 const clientRacketResponse = await GetRacketsByClientId(clientId);
-                if(clientRacketResponse.status === 200){
+                if (clientRacketResponse.status === 200) {
                     response.clientRackets = clientRacketResponse.data;
                 }
                 stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
@@ -87,22 +92,7 @@ export default function ClientDetail() {
 
     return (
         <div className={clientDetailStyles.container}>
-            <div className={clientDetailStyles.client_detail_container}>
-                <h2>{client?.firstName} {client?.lastName}</h2>
-                {userRole === 'admin' && (
-                    <>
-                        <p>Email: {client?.emailAddress}</p>
-                        <p>Phone: {client?.phoneNumber}</p>
-                    </>
-                )}
-                <p>Preferred Racket: {client?.racket}</p>
-            </div>
-            {userRole === 'admin' && (
-                <div className={clientDetailStyles.button_container}>
-                    <button onClick={() => handleEdit()}>Edit</button>
-                    <button onClick={() => handleDelete()}>Delete</button>
-                </div>
-            )}
+            <h2>{client?.firstName} {client?.lastName}</h2>
             <article className={clientDetailStyles.main_content_container}>
                 {historyIsActive && (
                     <section className={clientDetailStyles.string_job_history_container}>
@@ -123,8 +113,30 @@ export default function ClientDetail() {
                         )}
                     </section>
                 )}
-                {racketsIsActive && client?.clientRackets &&(
-                    <ClientRacketTable clientRackets={client.clientRackets}/>
+                {racketsIsActive && client?.clientRackets && (
+                    <ClientRacketTable clientRackets={client.clientRackets} />
+                )}
+                {futureJobsIsActive && (
+                    <></>
+                )}
+                {infoIsActive && (
+                    <>
+                        <div className={clientDetailStyles.client_detail_container}>
+                            {userRole === 'admin' && (
+                                <>
+                                    <p>Email: {client?.emailAddress}</p>
+                                    <p>Phone: {client?.phoneNumber}</p>
+                                </>
+                            )}
+                            <p>Preferred Racket: {client?.racket}</p>
+                        </div>
+                        {userRole === 'admin' && (
+                            <div className={clientDetailStyles.button_container}>
+                                <button onClick={() => handleEdit()}>Edit</button>
+                                <button onClick={() => handleDelete()}>Delete</button>
+                            </div>
+                        )}
+                    </>
                 )}
             </article>
             <TabNav setActivePanel={(panelName) => handleActivePanelOnChange(panelName)} />
