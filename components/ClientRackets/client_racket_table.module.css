@@ -1,6 +1,7 @@
 .table {
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height:50vh;
 }
 
 .table_header,
@@ -30,4 +31,24 @@
 
 .table_row:hover {
     border: 1px solid var(--primary);
+}
+
+.button_container{
+    text-align: center;
+}
+
+.add_button {
+    width:80%;
+    margin-top: 5vh;
+}
+
+@media (min-width:1024px) {
+    .button_container{
+        text-align: right;
+    }
+
+    .add_button {
+        margin-right:15px;
+        width: 150px;
+    }
 }
