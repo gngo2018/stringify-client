@@ -21,6 +21,16 @@
     cursor: pointer;
 }
 
+.container h3{
+    margin:0;
+}
+
+.container button{
+    display:block;
+    margin-top:15px;
+    width:100%;
+}
+
 
 @media (min-width:1024px) {
     .container{

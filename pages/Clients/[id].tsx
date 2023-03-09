@@ -8,16 +8,25 @@ import clientDetailStyles from './client_detail.module.css'
 import TabNav from '../../components/Clients/TabNav'
 import ClientRacketTable from '../../components/ClientRackets/ClientRacketTable'
 import { GetRacketsByClientId } from '../../services/ClientRacketService'
+import { ClientDetailFormContext } from '../../contexts/ClientDetailFormContext'
+import { Racket } from '../../models/Rackets/Racket'
 
 export default function ClientDetail() {
     const router = useRouter();
     const { id } = router.query;
+    const [clientId, setClientId] = useState(0);
     const [client, setClient] = useState<Client>();
     const [userRole, setUserRole] = useState('guest');
     const [historyIsActive, setHistoryIsActive] = useState(true);
     const [racketsIsActive, setRacketsIsActive] = useState(false);
     const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
     const [infoIsActive, setInfoIsActive] = useState(false);
+    const [racketDefault, setRacketDefault] = useState({
+        id: 0,
+        brand: '',
+        model: '',
+        year: 0
+    });
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -63,6 +72,7 @@ export default function ClientDetail() {
         async function GetClientById() {
             if (id) {
                 const clientId = parseInt(id.toString());
+                setClientId(clientId);
                 const response = await ClientService.GetClientById(clientId);
                 const stringJobs = await GetStringJobsByClientId(clientId);
                 const clientRacketResponse = await GetRacketsByClientId(clientId);
@@ -91,55 +101,57 @@ export default function ClientDetail() {
     }, [id])
 
     return (
-        <div className={clientDetailStyles.container}>
-            <h2>{client?.firstName} {client?.lastName}</h2>
-            <article className={clientDetailStyles.main_content_container}>
-                {historyIsActive && (
-                    <section className={clientDetailStyles.string_job_history_container}>
-                        {client?.stringJobs && (
-                            client.stringJobs.map(sj => {
-                                return (
-                                    <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
-                                        <div className={clientDetailStyles.string_job_card}>
-                                            <span>Date: {sj.jobDateTimeUtc.toString()}</span>
-                                            <span>Racket: {sj.racket}</span>
-                                            <span>String: {sj.stringName}</span>
-                                            <span>String Type: {sj.stringType}</span>
-                                            <span>Tension: {sj.tension} {sj.tensionType}</span>
-                                        </div>
-                                    </Link>
-                                )
-                            })
-                        )}
-                    </section>
-                )}
-                {racketsIsActive && client?.clientRackets && (
-                    <ClientRacketTable clientRackets={client.clientRackets} />
-                )}
-                {futureJobsIsActive && (
-                    <></>
-                )}
-                {infoIsActive && (
-                    <>
-                        <div className={clientDetailStyles.client_detail_container}>
-                            {userRole === 'admin' && (
-                                <>
-                                    <p>Email: {client?.emailAddress}</p>
-                                    <p>Phone: {client?.phoneNumber}</p>
-                                </>
+        <ClientDetailFormContext.Provider value={{clientId: clientId, racket: racketDefault, setRacket: setRacketDefault}}>
+            <div className={clientDetailStyles.container}>
+                <h2>{client?.firstName} {client?.lastName}</h2>
+                <article className={clientDetailStyles.main_content_container}>
+                    {historyIsActive && (
+                        <section className={clientDetailStyles.string_job_history_container}>
+                            {client?.stringJobs && (
+                                client.stringJobs.map(sj => {
+                                    return (
+                                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
+                                            <div className={clientDetailStyles.string_job_card}>
+                                                <span>Date: {sj.jobDateTimeUtc.toString()}</span>
+                                                <span>Racket: {sj.racket}</span>
+                                                <span>String: {sj.stringName}</span>
+                                                <span>String Type: {sj.stringType}</span>
+                                                <span>Tension: {sj.tension} {sj.tensionType}</span>
+                                            </div>
+                                        </Link>
+                                    )
+                                })
                             )}
-                            <p>Preferred Racket: {client?.racket}</p>
-                        </div>
-                        {userRole === 'admin' && (
-                            <div className={clientDetailStyles.button_container}>
-                                <button onClick={() => handleEdit()}>Edit</button>
-                                <button onClick={() => handleDelete()}>Delete</button>
+                        </section>
+                    )}
+                    {racketsIsActive && client?.clientRackets && (
+                        <ClientRacketTable clientRackets={client.clientRackets} />
+                    )}
+                    {futureJobsIsActive && (
+                        <></>
+                    )}
+                    {infoIsActive && (
+                        <>
+                            <div className={clientDetailStyles.client_detail_container}>
+                                {userRole === 'admin' && (
+                                    <>
+                                        <p>Email: {client?.emailAddress}</p>
+                                        <p>Phone: {client?.phoneNumber}</p>
+                                    </>
+                                )}
+                                <p>Preferred Racket: {client?.racket}</p>
                             </div>
-                        )}
-                    </>
-                )}
-            </article>
-            <TabNav setActivePanel={(panelName) => handleActivePanelOnChange(panelName)} />
-        </div>
+                            {userRole === 'admin' && (
+                                <div className={clientDetailStyles.button_container}>
+                                    <button onClick={() => handleEdit()}>Edit</button>
+                                    <button onClick={() => handleDelete()}>Delete</button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </article>
+                <TabNav setActivePanel={(panelName) => handleActivePanelOnChange(panelName)} />
+            </div>
+        </ClientDetailFormContext.Provider>
     )
 }
