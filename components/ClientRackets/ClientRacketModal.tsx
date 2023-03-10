@@ -20,7 +20,18 @@ export default function ClientRacketModal(props: ClientRacketModalProps) {
     const { data: racketData } = useQuery('racketData', async () => {
         const res = await GetAllRacketsAsync();
         if (res.status === 200) {
-            return res.data as Racket[];
+            const rackets = res.data as Racket[];
+            rackets.sort((a, b) => {
+                if (a.brand < b.brand) {
+                    return -1;
+                }
+                if (a.brand > b.brand) {
+                    return 1; 
+                }
+                return 0;
+            });
+            
+            return rackets;
         }
     });
 
