@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
+import { useClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 import ClientRacketModal from './ClientRacketModal'
 import tableStyles from './client_racket_table.module.css'
@@ -10,7 +11,9 @@ export type ClientRacketTableProps = {
 
 export default function ClientRacketTable(props: ClientRacketTableProps) {
     const { isAdmin } = useAuthContext();
+    const clientDetailContext = useClientDetailContext();
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    
     return (
         <>
             <div className={tableStyles.table}>

@@ -27,8 +27,16 @@
 
 .container button{
     display:block;
-    margin-top:15px;
+    margin:20px 0;
     width:100%;
+}
+
+.client_racket_form input{
+    display: block;
+}
+
+.client_racket_form select, .client_racket_form input{
+    margin-bottom:10px;
 }
 
 

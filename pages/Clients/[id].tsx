@@ -8,11 +8,13 @@ import clientDetailStyles from './client_detail.module.css'
 import TabNav from '../../components/Clients/TabNav'
 import ClientRacketTable from '../../components/ClientRackets/ClientRacketTable'
 import { GetRacketsByClientId } from '../../services/ClientRacketService'
-import { ClientDetailFormContext } from '../../contexts/ClientDetailFormContext'
+import { ClientDetailContext, useClientDetailContext } from '../../contexts/ClientDetailContext'
 import { Racket } from '../../models/Rackets/Racket'
+import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 
 export default function ClientDetail() {
     const router = useRouter();
+    const clientDetailContext = useClientDetailContext();
     const { id } = router.query;
     const [clientId, setClientId] = useState(0);
     const [client, setClient] = useState<Client>();
@@ -21,12 +23,7 @@ export default function ClientDetail() {
     const [racketsIsActive, setRacketsIsActive] = useState(false);
     const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
     const [infoIsActive, setInfoIsActive] = useState(false);
-    const [racketDefault, setRacketDefault] = useState({
-        id: 0,
-        brand: '',
-        model: '',
-        year: 0
-    });
+    const [clientRackets, setClientRackets] = useState<ClientRacket[]>([]);
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -78,6 +75,7 @@ export default function ClientDetail() {
                 const clientRacketResponse = await GetRacketsByClientId(clientId);
                 if (clientRacketResponse.status === 200) {
                     response.clientRackets = clientRacketResponse.data;
+                    setClientRackets(clientRacketResponse.data);
                 }
                 stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 response.stringJobs = stringJobs;
@@ -101,7 +99,7 @@ export default function ClientDetail() {
     }, [id])
 
     return (
-        <ClientDetailFormContext.Provider value={{clientId: clientId, racket: racketDefault, setRacket: setRacketDefault}}>
+        <ClientDetailContext.Provider value={{clientId: clientId, clientRackets: clientRackets, setClientRackets: setClientRackets}}>
             <div className={clientDetailStyles.container}>
                 <h2>{client?.firstName} {client?.lastName}</h2>
                 <article className={clientDetailStyles.main_content_container}>
@@ -152,6 +150,6 @@ export default function ClientDetail() {
                 </article>
                 <TabNav setActivePanel={(panelName) => handleActivePanelOnChange(panelName)} />
             </div>
-        </ClientDetailFormContext.Provider>
+        </ClientDetailContext.Provider>
     )
 }

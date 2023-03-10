@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
-import { useClientDetailFormContext } from '../../contexts/ClientDetailFormContext'
+import { useClientDetailContext } from '../../contexts/ClientDetailContext'
+import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 import { Racket } from '../../models/Rackets/Racket'
+import { ClientRacketFormProps, CreateClientRacketAsync } from '../../services/ClientRacketService'
 import { GetAllRacketsAsync } from '../../services/RacketService'
 import modalStyles from './client_racket_modal.module.css'
 
@@ -10,20 +13,47 @@ export type ClientRacketModalProps = {
 }
 
 export default function ClientRacketModal(props: ClientRacketModalProps) {
-    const clientDetailFormContext = useClientDetailFormContext();
+    const clientDetailContext = useClientDetailContext();
+    const clientRacketForm = useForm<ClientRacketFormProps>();
+    const [racketExists, setRacketExists] = useState(true);
+    const [modalTitle, setModalTitle] = useState("Assign Racket");
     const { data: racketData } = useQuery('racketData', async () => {
         const res = await GetAllRacketsAsync();
         if (res.status === 200) {
             return res.data as Racket[];
         }
     });
-    const [racketExists, setRacketExists] = useState(true);
-    const [modalTitle, setModalTitle] = useState("Assign Racket");
 
     const setModalState = (racketExists: boolean, title: string) => {
         setRacketExists(racketExists);
         setModalTitle(title);
     }
+
+    const handleClientRacketFormOnSubmit = clientRacketForm.handleSubmit(async (data) => {
+        data.clientId = clientDetailContext.clientId;   
+        const racketDetails = racketData?.filter(r => r.id == data.racketId)[0];
+        if(racketDetails){
+            const response = await CreateClientRacketAsync(data);
+            if (response.status === 200) {
+                const createdClientRacket: ClientRacket = {
+                    clientRacketId: response.data.id,
+                    serialNumber: data.serialNumber,
+                    clientId: data.clientId,
+                    racketId: data.racketId,
+                    clientFirstName: '',
+                    clientLastName: '',
+                    racketBrand: racketDetails.brand,
+                    racketModel: racketDetails.model,
+                    racketYear: racketDetails.year.toString(),
+                    timesStrung: 0
+                }
+                const rackets = clientDetailContext.clientRackets;
+                rackets.push(createdClientRacket);
+                clientDetailContext.setClientRackets(rackets);
+                props.closeModal(false);
+            }
+        }     
+    });
     
     return (
         <>
@@ -35,15 +65,20 @@ export default function ClientRacketModal(props: ClientRacketModalProps) {
                 </div>
                 {racketExists && (
                     <>
-                        <form>
+                        <form className={modalStyles.client_racket_form} onSubmit={handleClientRacketFormOnSubmit}>
                             <label>Racket</label>
-                            <select>
+                            <select {...clientRacketForm.register('racketId')}>
+                                <option value=''></option>
                                 {racketData?.map((r)=> {
                                     return <option value={r.id} key={r.id}>{r.brand} {r.model} {r.year}</option>
                                 })}
                             </select>
+                            <label>Serial Number</label>
+                            <input 
+                                {...clientRacketForm.register('serialNumber')}
+                            />
+                            <button type="submit">Submit</button>
                         </form>
-                        <button type="submit">Submit</button>
                         <a onClick={() => setModalState(false, "Create Racket")}>Racket not found?</a>
                     </>
                 )}
