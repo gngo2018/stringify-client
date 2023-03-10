@@ -17,7 +17,7 @@
     align-items: center;
 }
 
-.header_container span{
+.header_container span, .container a{
     cursor: pointer;
 }
 
@@ -35,6 +35,10 @@
     display: block;
 }
 
+.client_racket_form select{
+    width:100%;
+}
+
 .client_racket_form select, .client_racket_form input{
     margin-bottom:10px;
 }
@@ -48,4 +52,21 @@
         height: 75vh;
         padding:0 1%;
     }
+    
+    .client_racket_form, .container a{
+        padding:0 10px;
+    }
+
+    .client_racket_form select, .client_racket_form input{
+        display: block;
+    }
+
+    .client_racket_form select{
+        width:50%;
+    }
+
+    .container button{
+        width:50%;
+    }
+
 }
