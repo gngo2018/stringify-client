@@ -70,31 +70,23 @@ export default function ClientDetail() {
             if (id) {
                 const clientId = parseInt(id.toString());
                 setClientId(clientId);
-                const response = await ClientService.GetClientById(clientId);
-                const stringJobs = await GetStringJobsByClientId(clientId);
-                const clientRacketResponse = await GetRacketsByClientId(clientId);
-                if (clientRacketResponse.status === 200) {
-                    response.clientRackets = clientRacketResponse.data;
-                    setClientRackets(clientRacketResponse.data);
-                }
-                stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
-                response.stringJobs = stringJobs;
+                const response = await ClientService.GetClientDetailsById(clientId);
+                // const stringJobs = await GetStringJobsByClientId(clientId);
+                // const clientRacketResponse = await GetRacketsByClientId(clientId);
+                // if (clientRacketResponse.status === 200) {
+                //     response.clientRackets = clientRacketResponse.data;
+                //     setClientRackets(clientRacketResponse.data);
+                // }
+                // stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
+                // response.stringJobs = stringJobs;
+                response.stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 setClient(response);
-
                 const userRole = localStorage.getItem('userRole');
                 if (userRole) {
                     setUserRole(userRole);
                 }
             }
         }
-
-        async function GetStringJobsByClientId(id: number) {
-            const response = await StringJobService.GetStringJobsByClientIdAsync(id);
-            if (response.status === 200) {
-                return response.data;
-            }
-        }
-
         GetClientById();
     }, [id])
 

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Client } from '../models/Clients/Client'
 import { ClientCreate } from '../models/Clients/ClientCreate'
 
-const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients';
+const url = process.env.NEXT_PUBLIC_STRINGIFY_DOTNET_API_URL + 'clients';
 
 export async function GetAllClientsAsync() {
     let clientArray: Client[] = [];
@@ -15,7 +15,7 @@ export async function GetAllClientsAsync() {
     return clientArray;
 }
 
-export async function GetClientById(id: number) {
+export async function GetClientDetailsById(id: number) {
     const requestURL = url + '/' + id
     const response = await fetch(requestURL);
     const client = await response.json();

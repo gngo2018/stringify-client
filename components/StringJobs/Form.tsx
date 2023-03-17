@@ -90,7 +90,7 @@ export default function StringJobForm(props: FormProps) {
                 {clientRackets && (
                     clientRackets.map((cr) => {
                         return (
-                            <option key={cr.clientRacketId} value={cr.clientRacketId}>
+                            <option key={cr.id} value={cr.id}>
                                 {cr.serialNumber} - {cr.racketBrand} {cr.racketModel} {cr.racketYear}
                             </option>
                         )

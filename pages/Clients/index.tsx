@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/Modules/LoadingSpinner'
 import clientStyles from './client.module.css'
 
 export default function Clients() {
-    const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'clients'
+    const url = process.env.NEXT_PUBLIC_STRINGIFY_DOTNET_API_URL + 'clients'
     const router = useRouter();
     const clientFetch = useFetch<Client[]>(url);
 

@@ -1,5 +1,5 @@
 export type ClientRacket = {
-    clientRacketId: number,
+    id: number,
     serialNumber: string,
     clientId: number,
     racketId: number,

@@ -47,7 +47,7 @@ export default function ClientRacketModal(props: ClientRacketModalProps) {
             const response = await CreateClientRacketAsync(data);
             if (response.status === 200) {
                 const createdClientRacket: ClientRacket = {
-                    clientRacketId: response.data.id,
+                    id: response.data.id,
                     serialNumber: data.serialNumber,
                     clientId: data.clientId,
                     racketId: data.racketId,

@@ -73,7 +73,7 @@ export default function ClientRackets() {
                 {clientRackets && clientRacketsByClient && (
                     clientRacketsByClient.map(cr => {
                         return (
-                            <Link href={'/Rackets/Detail/' + cr.racketId} key={cr.clientRacketId} className={clientRacketStyles.table_row}>
+                            <Link href={'/Rackets/Detail/' + cr.racketId} key={cr.id} className={clientRacketStyles.table_row}>
                                 <span>{cr.serialNumber}</span>
                                 <span>{cr.clientFirstName}</span>
                                 <span>{cr.clientLastName}</span>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
@@ -29,7 +29,7 @@ export default function ClientRacketTable(props: ClientRacketTableProps) {
                 {props.clientRackets && (
                     props.clientRackets.map(cr => {
                         return (
-                            <div key={cr.clientRacketId} className={tableStyles.table_row}>
+                            <div key={cr.id} className={tableStyles.table_row}>
                                 {isAdmin && (
                                     <span>{cr.serialNumber}</span>
                                 )}
