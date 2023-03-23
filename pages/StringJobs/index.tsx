@@ -42,6 +42,15 @@ export default function StringJobs() {
             const response = await StringJobService.GetAllStringJobsAsync();
             if (response.status === 200) {
                 const jobs = response.data;
+                jobs.map(j =>{
+                    const jobDate = new Date(j.jobDateTimeUtc);
+                    const normalizedDateIso = jobDate
+                                                .toLocaleString('en-us', {year: 'numeric', month: '2-digit', day: '2-digit'})
+                                                .replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2');
+                    console.log(normalizedDateIso);
+                    
+                    j.jobDateTimeUtc = new Date(normalizedDateIso);
+                });
                 jobs.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 setStringJobs(jobs);
                 setStringJobsByClient(jobs);
@@ -74,7 +83,8 @@ export default function StringJobs() {
                     stringJobsByClient.map(sj => {
                         return (
                             <Link href={'/StringJobs/Detail/' + sj.stringJobId} key={sj.stringJobId} className={stringJobStyles.table_row}>
-                                <span>{sj.jobDateTimeUtc.toString()}</span>
+                                <span>{sj.jobDateTimeUtc.toLocaleString('en-us', {year: 'numeric', month: '2-digit', day: '2-digit'})
+                                                .replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2')}</span>
                                 <span>{sj.clientFirstName}</span>
                                 <span>{sj.racketSerialNumber}</span>
                                 <span>{sj.racketName}</span>
