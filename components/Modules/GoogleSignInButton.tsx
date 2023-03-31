@@ -24,7 +24,7 @@ export default function GoogleSignInButton() {
 
     if (status === 'loading' || isLoading) {
         return (
-            <h1> loading... please wait</h1>
+            <p><em>loading... please wait</em></p>
         );
     }
     if (status === 'authenticated') {
