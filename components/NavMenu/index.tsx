@@ -1,11 +1,15 @@
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useNavMenuContext } from '../../contexts/NavMenuContext'
+import GoogleSignInButton from '../Modules/GoogleSignInButton'
 import menuStyles from './menu.module.css'
 
 export default function NavMenu({ isOpen }: { isOpen: boolean }) {
     const { setIsOpen } = useNavMenuContext();
     const { isAdmin, setIsAdmin } = useAuthContext();
+    const { data, status } = useSession();
+
     function SignOut() {
         setIsOpen(false)
         localStorage.removeItem('userRole');
@@ -15,8 +19,8 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
 
     return (
         <div className={isOpen ? `${menuStyles.menu_container} ${menuStyles.menu_container_is_open} ` : menuStyles.menu_container}>
-            {isAdmin ?
-                <h4>Hello George</h4> :
+            {data?.user?.name ?
+                <h4>Hello {data.user.name}</h4> :
                 <h4>Menu</h4>
             }
             <Link href='/Clients'>
@@ -31,17 +35,12 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
             <Link href='/ClientRackets'>
                 <span onClick={() => setIsOpen(false)}>Client Rackets</span>
             </Link>
-            {isAdmin ?
-                <>
-                    <Link href='/Analytics'>
-                        <span onClick={() => setIsOpen(false)}>Analytics</span>
-                    </Link>
-                    <span onClick={() => SignOut()}>Sign Out</span>
-                </> :
-                <Link href='/SignIn'>
-                    <span onClick={() => setIsOpen(false)}>Sign In</span>
+            {isAdmin && (
+                <Link href='/Analytics'>
+                    <span onClick={() => setIsOpen(false)}>Analytics</span>
                 </Link>
-            }
+            )}
+            <GoogleSignInButton />
         </div>
     )
 }
