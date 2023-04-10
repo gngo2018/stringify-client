@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import StringJobForm, { FormProps } from '../../../components/StringJobs/Form'
+import StringJobForm from '../../../components/StringJobs/Form'
+import { useAuthContext } from '../../../contexts/AuthContext'
 import { Client } from '../../../models/Clients/Client'
 import * as ClientService from '../../../services/ClientService'
 import createStyles from './string_job_create.module.css'
 
 export default function CreateStringJob() {
     const router = useRouter();
+    const { isAdmin } = useAuthContext();
     const [clients, setClients] = useState<Client[]>()
     
     useEffect(() => {
@@ -14,8 +16,7 @@ export default function CreateStringJob() {
             const response = await ClientService.GetAllClientsAsync();
             setClients(response);
         }
-        const userRole = localStorage.getItem('userRole');
-        if(userRole && userRole !== 'admin'){
+        if(!isAdmin){
             router.push('/StringJobs')
         }
         SetFormProps();
