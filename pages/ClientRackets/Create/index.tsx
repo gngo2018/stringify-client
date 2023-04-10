@@ -1,4 +1,4 @@
-import ClientRacketForm from '../../../components/ClientRackets/Form'
+import ClientRacketForm from '../../../components/ClientRackets/CreateForm'
 import createStyles from './create.module.css'
 
 export default function ClientRacketCreate() {

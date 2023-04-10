@@ -20,7 +20,7 @@ export default function CreateStringJob() {
             router.push('/StringJobs')
         }
         SetFormProps();
-    }, [router]);
+    }, [router, isAdmin]);
     
     return(
         <main className={createStyles.container}>

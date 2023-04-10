@@ -6,17 +6,10 @@ import Header from '../components/Header/Header'
 import { AuthContext } from '../contexts/AuthContext'
 import '../styles/globals.css'
 
-const secret = process.env.NEXTAUTH_SECRET
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    const userRole = localStorage.getItem('userRole');
-    if (userRole === 'admin') {
-      setIsAdmin(true);
-    }
-  }, [])
 
   return (
     <SessionProvider session={pageProps.session}>

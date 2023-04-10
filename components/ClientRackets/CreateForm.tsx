@@ -8,7 +8,7 @@ import * as RacketService from '../../services/RacketService'
 import { CreateClientRacketAsync, ClientRacketFormProps } from '../../services/ClientRacketService'
 import formStyles from './form.module.css'
 
-export default function ClientRacketForm() {
+export default function ClientRacketCreateForm() {
     const router = useRouter();
     const { register, handleSubmit } = useForm<ClientRacketFormProps>();
     const [clients, setClients] = useState<Client[]>([]);

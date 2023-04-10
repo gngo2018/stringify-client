@@ -12,10 +12,12 @@ export default function GoogleSignInButton() {
                 setIsAdmin(true);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data?.user?.email])
 
     const handleSignOut = () => {
-        signOut()
+        setIsAdmin(false);
+        signOut();
     }
 
     const handleSignIn = async () => {

@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useAuthContext } from '../../contexts/AuthContext'
 import Link from 'next/link'
 import * as ClientService from '../../services/ClientService'
 import * as StringJobService from '../../services/StringJobService'
 import { Client } from '../../models/Clients/Client'
-import clientDetailStyles from './client_detail.module.css'
 import TabNav from '../../components/Clients/TabNav'
 import ClientRacketTable from '../../components/ClientRackets/ClientRacketTable'
 import { GetRacketsByClientId } from '../../services/ClientRacketService'
-import { ClientDetailContext, useClientDetailContext } from '../../contexts/ClientDetailContext'
-import { Racket } from '../../models/Rackets/Racket'
+import { ClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
+import clientDetailStyles from './client_detail.module.css'
 
 export default function ClientDetail() {
     const router = useRouter();
-    const clientDetailContext = useClientDetailContext();
     const { id } = router.query;
+    const { isAdmin } = useAuthContext();
     const [clientId, setClientId] = useState(0);
     const [client, setClient] = useState<Client>();
-    const [userRole, setUserRole] = useState('guest');
     const [historyIsActive, setHistoryIsActive] = useState(true);
     const [racketsIsActive, setRacketsIsActive] = useState(false);
     const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
@@ -80,11 +79,6 @@ export default function ClientDetail() {
                 stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 response.stringJobs = stringJobs;
                 setClient(response);
-
-                const userRole = localStorage.getItem('userRole');
-                if (userRole) {
-                    setUserRole(userRole);
-                }
             }
         }
 
@@ -131,7 +125,7 @@ export default function ClientDetail() {
                     {infoIsActive && (
                         <>
                             <div className={clientDetailStyles.client_detail_container}>
-                                {userRole === 'admin' && (
+                                {isAdmin && (
                                     <>
                                         <p>Email: {client?.emailAddress}</p>
                                         <p>Phone: {client?.phoneNumber}</p>
@@ -139,7 +133,7 @@ export default function ClientDetail() {
                                 )}
                                 <p>Preferred Racket: {client?.racket}</p>
                             </div>
-                            {userRole === 'admin' && (
+                            {isAdmin && (
                                 <div className={clientDetailStyles.button_container}>
                                     <button onClick={() => handleEdit()}>Edit</button>
                                     <button onClick={() => handleDelete()}>Delete</button>

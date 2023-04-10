@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
-import ClientRacketModal from './ClientRacketModal'
+import ClientRacketCreateModal from './CreateModal'
+import ClientRacketUpdateModal from './DetailModal'
 import tableStyles from './client_racket_table.module.css'
 
 export type ClientRacketTableProps = {
@@ -12,8 +13,19 @@ export type ClientRacketTableProps = {
 export default function ClientRacketTable(props: ClientRacketTableProps) {
     const { isAdmin } = useAuthContext();
     const clientDetailContext = useClientDetailContext();
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+    const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
+    const [clientRacket, setClientRacket] = useState<ClientRacket>();
     
+    const handleClientRacketOnClick = (clientRacket: ClientRacket) => {
+        setClientRacket(clientRacket);
+        setUpdateModalIsOpen(true);
+    }
+
+    const updateClientRacketValue = (cr: ClientRacket) => {
+
+    }
+
     return (
         <>
             <div className={tableStyles.table}>
@@ -29,7 +41,7 @@ export default function ClientRacketTable(props: ClientRacketTableProps) {
                 {props.clientRackets && (
                     props.clientRackets.map(cr => {
                         return (
-                            <div key={cr.clientRacketId} className={tableStyles.table_row}>
+                            <div key={cr.clientRacketId} className={tableStyles.table_row} onClick={() => handleClientRacketOnClick(cr)}>
                                 {isAdmin && (
                                     <span>{cr.serialNumber}</span>
                                 )}
@@ -43,10 +55,18 @@ export default function ClientRacketTable(props: ClientRacketTableProps) {
                 )}
             </div>
             <div className={tableStyles.button_container}>
-                <button className={tableStyles.add_button} onClick={() => setModalIsOpen(!modalIsOpen)}>Add Racket</button>
+                <button className={tableStyles.add_button} onClick={() => setCreateModalIsOpen(!createModalIsOpen)}>Add Racket</button>
             </div>
-            {modalIsOpen && (
-                <ClientRacketModal closeModal={(close) => setModalIsOpen(close)}/>
+            {createModalIsOpen && (
+                <ClientRacketCreateModal setCreateModalIsOpen={(isOpen) => setCreateModalIsOpen(isOpen)}/>
+            )}
+
+            {updateModalIsOpen && clientRacket && (
+                <ClientRacketUpdateModal 
+                    setUpdateModalIsOpen={(isOpen) => setUpdateModalIsOpen(isOpen)}
+                    setUpdatedClientRecord={(cr) => updateClientRacketValue(cr)} 
+                    clientRacket={clientRacket}
+                />
             )}
         </>
     )

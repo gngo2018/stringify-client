@@ -10,13 +10,6 @@ export default function NavMenu({ isOpen }: { isOpen: boolean }) {
     const { isAdmin, setIsAdmin } = useAuthContext();
     const { data, status } = useSession();
 
-    function SignOut() {
-        setIsOpen(false)
-        localStorage.removeItem('userRole');
-        localStorage.setItem('userRole', 'guest')
-        setIsAdmin(false);
-    }
-
     return (
         <div className={isOpen ? `${menuStyles.menu_container} ${menuStyles.menu_container_is_open} ` : menuStyles.menu_container}>
             {data?.user?.name ?

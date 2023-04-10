@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useAuthContext } from '../../../contexts/AuthContext'
 import { StringJobDetailItem } from '../../../models/StringJobs/StringJobDetailItem'
 import * as StringJobService from '../../../services/StringJobService'
 import detailStyles from './detail.module.css'
@@ -8,8 +9,8 @@ import detailStyles from './detail.module.css'
 export default function StringJobDetail() {
     const router = useRouter();
     const { id } = router.query;
+    const { isAdmin } = useAuthContext();
     const [stringJob, setStringJob] = useState<StringJobDetailItem>()
-    const [userRole, setUserRole] = useState('guest');
 
     const handleDelete = async () => {
         const result = confirm('Are you sure you want to delete this job?')
@@ -30,10 +31,6 @@ export default function StringJobDetail() {
                 if (response.status === 200) {
                     setStringJob(response.data);
                 }
-                const userRole = localStorage.getItem('userRole');
-                if(userRole){
-                    setUserRole(userRole);
-                }
             }
         }
 
@@ -42,7 +39,7 @@ export default function StringJobDetail() {
     return (
         <main className={detailStyles.detail_container}>
             <h2>Job Detail - {stringJob?.clientFirstName}</h2>
-            {userRole === 'admin' && (
+            {isAdmin && (
                 <div className={detailStyles.button_container}>
                     <Link href={'/StringJobs/Update/' + stringJob?.stringJobId}>
                         <button>Edit</button>
@@ -62,7 +59,7 @@ export default function StringJobDetail() {
             <span>{stringJob?.stringType}</span>
             <label>Tension</label>
             <span>{stringJob?.tension} {stringJob?.tensionType}</span>
-            {userRole === 'admin' && (
+            {isAdmin && (
                 <>
                     <label>Charge Amount</label>
                     <span>${stringJob?.chargeAmount}</span>

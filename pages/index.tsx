@@ -3,19 +3,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const router = useRouter();
-  useEffect(() => {
-    const userRole = localStorage.getItem('userRole');
-    if (!userRole) {
-      localStorage.setItem('userRole', 'guest')
-    }
-  }, [])
   const {isAdmin} = useAuthContext();
+
   return (
     <div className={styles.container}>
       <Head>

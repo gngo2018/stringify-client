@@ -8,11 +8,11 @@ import { ClientRacketFormProps, CreateClientRacketAsync } from '../../services/C
 import { GetAllRacketsAsync } from '../../services/RacketService'
 import modalStyles from './client_racket_modal.module.css'
 
-export type ClientRacketModalProps = {
-    closeModal: (c: boolean) =>  void
+export type ClientRacketCreateModalProps = {
+    setCreateModalIsOpen: (c: boolean) =>  void
 }
 
-export default function ClientRacketModal(props: ClientRacketModalProps) {
+export default function ClientRacketCreateModal(props: ClientRacketCreateModalProps) {
     const clientDetailContext = useClientDetailContext();
     const clientRacketForm = useForm<ClientRacketFormProps>();
     const [racketExists, setRacketExists] = useState(true);
@@ -61,7 +61,7 @@ export default function ClientRacketModal(props: ClientRacketModalProps) {
                 const rackets = clientDetailContext.clientRackets;
                 rackets.push(createdClientRacket);
                 clientDetailContext.setClientRackets(rackets);
-                props.closeModal(false);
+                props.setCreateModalIsOpen(false);
             }
         }     
     });
@@ -72,7 +72,7 @@ export default function ClientRacketModal(props: ClientRacketModalProps) {
             <div className={modalStyles.container}>
                 <div className={modalStyles.header_container}>
                     <h2>{modalTitle}</h2>
-                    <span onClick={() => props.closeModal(false)}>X</span>
+                    <span onClick={() => props.setCreateModalIsOpen(false)}>X</span>
                 </div>
                 {racketExists && (
                     <>

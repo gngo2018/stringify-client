@@ -34,6 +34,7 @@ export default function Analytics() {
         if (!isAdmin) {
             router.push('/');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

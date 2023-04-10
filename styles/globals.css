@@ -12,24 +12,23 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-button {
-  border-radius: 5px;
-  border: 1px solid black;
-  background-color: lightgray;
-  color: var(--secondary);
-  cursor: pointer;
-  width: 80px;
-  height: 20px;
+button{
+  border: none;
+  border-radius: 15px;
+  height:30px;
+  background-color: var(--primary);
+  color:white;
+  font-weight: 500;
 }
 
 button:active {
   box-shadow: 0px 1px 0px 0px;
 }
 
-button:hover {
-  /* background-color: #000; */
-  /*  Making button bigger on hover  */
-  transform: scale(1.1) perspective(1px)
+button:disabled,
+button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
 }
 
 input,
@@ -45,15 +44,6 @@ a {
   color: var(--secondary);
 }
 
-button{
-  border: none;
-  border-radius: 15px;
-  height:30px;
-  background-color: var(--primary);
-  color:white;
-  font-weight: 500;
-}
-
 .overlay{
   position: fixed; /* Sit on top of the page content */
   display: block; /* Hidden by default */
@@ -65,4 +55,18 @@ button{
   bottom: 0;
   background-color: rgba(0,0,0,0.5); /* Black background with opacity */
   z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+.delete-btn{
+  background-color: white;
+  color:red;
+  border:1px solid red;
+}
+
+@media (min-width:1024px) {
+  button:hover {
+    /* background-color: #000; */
+    /*  Making button bigger on hover  */
+    transform: scale(1.1) perspective(1px)
+  }
 }
