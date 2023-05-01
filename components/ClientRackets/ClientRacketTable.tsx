@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
-import { useClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 import ClientRacketCreateModal from './CreateModal'
 import ClientRacketUpdateModal from './DetailModal'
@@ -12,7 +11,6 @@ export type ClientRacketTableProps = {
 
 export default function ClientRacketTable(props: ClientRacketTableProps) {
     const { isAdmin } = useAuthContext();
-    const clientDetailContext = useClientDetailContext();
     const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
     const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
     const [clientRacket, setClientRacket] = useState<ClientRacket>();

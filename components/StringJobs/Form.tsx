@@ -9,13 +9,13 @@ import { StringJobFormFields } from '../../models/StringJobs/StringJobForm'
 import * as StringJobService from '../../services/StringJobService'
 import formStyles from './form.module.css'
 
-export interface FormProps {
+export interface StringJobFormProps {
     source: string
     clients?: Client[]
     stringJobId?: number,
 }
 
-export default function StringJobForm(props: FormProps) {
+export default function StringJobForm(props: StringJobFormProps) {
     const router = useRouter();
     const { register, handleSubmit, setValue, reset } = useForm<StringJobFormFields>();
     const [clientRackets, setClientRackets] = useState<ClientRacket[]>([])

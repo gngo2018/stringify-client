@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthContext } from '../../contexts/AuthContext'
-import Link from 'next/link'
 import * as ClientService from '../../services/ClientService'
 import * as StringJobService from '../../services/StringJobService'
 import { Client } from '../../models/Clients/Client'
@@ -10,6 +9,8 @@ import ClientRacketTable from '../../components/ClientRackets/ClientRacketTable'
 import { GetRacketsByClientId } from '../../services/ClientRacketService'
 import { ClientDetailContext } from '../../contexts/ClientDetailContext'
 import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
+import StringJobList from '../../components/StringJobs/StringJobList'
+import { StringJob } from '../../models/StringJobs/StringJob'
 import clientDetailStyles from './client_detail.module.css'
 
 export default function ClientDetail() {
@@ -18,11 +19,12 @@ export default function ClientDetail() {
     const { isAdmin } = useAuthContext();
     const [clientId, setClientId] = useState(0);
     const [client, setClient] = useState<Client>();
-    const [historyIsActive, setHistoryIsActive] = useState(true);
+    const [pastJobsIsActive, setPastJobsIsActive] = useState(true);
     const [racketsIsActive, setRacketsIsActive] = useState(false);
     const [futureJobsIsActive, setFutureJobsIsActive] = useState(false);
     const [infoIsActive, setInfoIsActive] = useState(false);
     const [clientRackets, setClientRackets] = useState<ClientRacket[]>([]);
+    const [stringJobs, setStringJobs] = useState<StringJob[]>([]);
 
     const handleEdit = () => {
         const clientJson = JSON.stringify(client);
@@ -45,13 +47,13 @@ export default function ClientDetail() {
     }
 
     const handleActivePanelOnChange = (panelName: string) => {
-        setHistoryIsActive(false);
+        setPastJobsIsActive(false);
         setRacketsIsActive(false);
         setFutureJobsIsActive(false);
         setInfoIsActive(false);
 
-        if (panelName.toUpperCase() === 'HISTORY') {
-            setHistoryIsActive(true);
+        if (panelName.toUpperCase() === 'PASTJOBS') {
+            setPastJobsIsActive(true);
         }
         else if (panelName.toUpperCase() === 'RACKETS') {
             setRacketsIsActive(true);
@@ -79,6 +81,9 @@ export default function ClientDetail() {
                 stringJobs?.sort((a, b) => +new Date(b.jobDateTimeUtc) - +new Date(a.jobDateTimeUtc));
                 response.stringJobs = stringJobs;
                 setClient(response);
+                if(stringJobs){
+                    setStringJobs(stringJobs);
+                }
             }
         }
 
@@ -93,28 +98,12 @@ export default function ClientDetail() {
     }, [id])
 
     return (
-        <ClientDetailContext.Provider value={{clientId: clientId, clientRackets: clientRackets, setClientRackets: setClientRackets}}>
+        <ClientDetailContext.Provider value={{clientId: clientId, clientRackets: clientRackets, stringJobs: stringJobs, setClientRackets: setClientRackets, setStringJobs: setStringJobs}}>
             <div className={clientDetailStyles.container}>
                 <h2>{client?.firstName} {client?.lastName}</h2>
                 <article className={clientDetailStyles.main_content_container}>
-                    {historyIsActive && (
-                        <section className={clientDetailStyles.string_job_history_container}>
-                            {client?.stringJobs && (
-                                client.stringJobs.map(sj => {
-                                    return (
-                                        <Link href={'/StringJobs/Detail/' + sj.id} key={sj.id} className={clientDetailStyles.string_job_link}>
-                                            <div className={clientDetailStyles.string_job_card}>
-                                                <span>Date: {sj.jobDateTimeUtc.toString()}</span>
-                                                <span>Racket: {sj.racket}</span>
-                                                <span>String: {sj.stringName}</span>
-                                                <span>String Type: {sj.stringType}</span>
-                                                <span>Tension: {sj.tension} {sj.tensionType}</span>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            )}
-                        </section>
+                    {pastJobsIsActive && client?.stringJobs && (
+                        <StringJobList />
                     )}
                     {racketsIsActive && client?.clientRackets && (
                         <ClientRacketTable clientRackets={client.clientRackets} />

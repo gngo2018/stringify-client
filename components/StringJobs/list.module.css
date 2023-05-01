@@ -1,0 +1,54 @@
+.string_job_history_container {
+    height: 50vh;
+}
+
+.string_job_detail_container{
+    height:40vh;
+    overflow: auto;
+}
+
+.string_job_header_card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.string_job_header_card button {
+    height: 20px;
+}
+
+.string_job_card {
+    margin: 0 5px 20px 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+}
+
+.string_job_card span {
+    display: block;
+}
+
+.string_job_card:hover {
+    font-weight: 500;
+    background-color: var(--tertiary);
+}
+
+.string_job_card:active {
+    background-color: var(--tertiary);
+}
+
+.button_container{
+    text-align: center;
+}
+
+.button_container button {
+    width:80%;
+    margin-top: 5vh;
+}
+
+@media (min-width: 1024px) {
+    .string_job_history_container {
+        height: 70vh;
+    }
+}
