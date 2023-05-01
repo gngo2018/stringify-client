@@ -6,6 +6,7 @@ import { ClientRacket } from '../../models/ClientRackets/ClientRacket'
 import { Racket } from '../../models/Rackets/Racket'
 import { ClientRacketFormProps, CreateClientRacketAsync } from '../../services/ClientRacketService'
 import { GetAllRacketsAsync } from '../../services/RacketService'
+import RacketForm from '../Rackets/Form'
 import modalStyles from './client_racket_modal.module.css'
 
 export type ClientRacketCreateModalProps = {
@@ -65,7 +66,7 @@ export default function ClientRacketCreateModal(props: ClientRacketCreateModalPr
             }
         }     
     });
-    
+
     return (
         <>
             <div className='overlay'></div>
@@ -95,8 +96,7 @@ export default function ClientRacketCreateModal(props: ClientRacketCreateModalPr
                 )}
                 {!racketExists && (
                     <>
-                        <h3>Create new racket</h3>
-                        <button type="submit">Submit</button>
+                        <RacketForm setCreateModalIsOpen={props.setCreateModalIsOpen}/>
                         <a onClick={() => setModalState(true, "Assign Racket")}>Racket exists?</a>
                     </>
                 )}

@@ -17,9 +17,9 @@ export default function TabNav(props: TabNavProps) {
         setFutureJobsIsActive(false);
         setInfoIsActive(false);
 
-        if(id.toUpperCase() === 'HISTORY'){
+        if(id.toUpperCase() === 'PASTJOBS'){
             setHistoryIsActive(true);
-            props.setActivePanel('History');
+            props.setActivePanel('PastJobs');
         }
         else if(id.toUpperCase() === 'RACKETS'){
             setRacketsIsActive(true);
@@ -38,8 +38,8 @@ export default function TabNav(props: TabNavProps) {
     return (
         <section className={tabStyles.flex_container}>
             <div className={`${tabStyles.circle_container} ${historyIsActive ? tabStyles.active : ''}`}>
-                <span onClick={() => handleTabNavOnClick('History')}></span>
-                <p>History</p>
+                <span onClick={() => handleTabNavOnClick('PastJobs')}></span>
+                <p>Past Jobs</p>
             </div>
             <div className={`${tabStyles.circle_container} ${racketsIsActive ? tabStyles.active : ''}`}>
                 <span onClick={() => handleTabNavOnClick('Rackets')}></span>

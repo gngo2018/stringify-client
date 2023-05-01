@@ -1,8 +1,13 @@
 import axios from 'axios'
-import { RacketFormProps } from '../components/Rackets/Form';
-import { Racket } from '../models/Rackets/Racket'
 
 const url = process.env.NEXT_PUBLIC_STRINGIFY_API_URL + 'rackets'
+
+export interface RacketProps {
+    brand: string,
+    model: string,
+    year: number,
+    serialNumber?: string
+}
 
 export function GetStaticRacketBrands() {
     let brands = [
@@ -14,7 +19,11 @@ export function GetStaticRacketBrands() {
         { id: 6, name: 'Diadem' },
         { id: 7, name: 'Prince' },
         { id: 8, name: 'Dunlop' },
-        { id: 9, name: 'Vokl' }
+        { id: 9, name: 'Vokl' },
+        { id: 10, name: 'ProKennex' },
+        { id: 11, name: 'Solinco' },
+        { id: 12, name: 'Gamma' },
+        { id: 13, name: 'Lacoste' }
     ]
 
     return brands;
@@ -25,7 +34,7 @@ export async function GetAllRacketsAsync() {
     return response;
 }
 
-export async function CreateRacketAsync(racket: RacketFormProps) {
+export async function CreateRacketAsync(racket: RacketProps) {
     const response = await axios.post(url, racket);
     return response;
 }
